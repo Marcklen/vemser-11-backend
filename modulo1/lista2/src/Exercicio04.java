@@ -3,18 +3,32 @@ import java.util.Scanner;
 public class Exercicio04 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int dadosAluno[][] = new int[2][4];
-        for (int linha = 0; linha < dadosAluno.length; linha++) {
-            for (int coluna = 0; coluna < dadosAluno.length; coluna++) {
-                System.out.println("Número da matricula " + (linha + 1) + " " + (coluna + 1));
-                dadosAluno[linha][coluna] = scanner.nextInt();
-                System.out.println("Média das provas " + (linha + 1) + " " + (coluna + 1));
-                dadosAluno[linha][coluna] = scanner.nextInt();
-                System.out.println("Média dos trabalhos " + (linha + 1) + " " + (coluna + 1));
-                dadosAluno[linha][coluna] = scanner.nextInt();
-                System.out.println("Nota final " + (linha + 1) + " " + (coluna + 1));
-                dadosAluno[linha][coluna] = scanner.nextInt();
+        int dadosAluno[][] = new int[3][4];
+        for (int i = 0; i < dadosAluno.length; i++) {
+            int coluna = 0;
+            System.out.print("Digite a matricula do aluno : " + (i + 1) + " : ");
+            dadosAluno[i][coluna] = scanner.nextInt();
+            coluna++;
+            System.out.print("Digite a media das provas do aluno : " + (i + 1) + " : ");
+            dadosAluno[i][coluna] = scanner.nextInt();
+            coluna++;
+            System.out.print("Digite a media dos trabalhos do aluno : " + (i + 1) + " : ");
+            dadosAluno[i][coluna] = scanner.nextInt();
+            coluna++;
+            dadosAluno[i][coluna] = (int) ((dadosAluno[i][1] * 0.6) + (dadosAluno[i][2] * 0.4));
+        }
+        double mediaNotaFinal = 0;
+        double maiorMedia = 0;
+        int indiceMaiorNota = 0;
+        for (int i = 0; i < dadosAluno.length; i++) {
+            mediaNotaFinal += dadosAluno[i][3];
+            if (dadosAluno[i][3] > maiorMedia) {
+                maiorMedia = dadosAluno[i][3];
+                indiceMaiorNota = i;
             }
         }
+//        System.out.printf("A matricula do aluno com a maior nota final é : %d\n" , indiceMaiorNota);
+        System.out.println("A Matricula do aluno com a maior nota final é " + dadosAluno[indiceMaiorNota][0]);
+        System.out.printf("A media das notas finais dos alunos e : %.2f" , mediaNotaFinal / dadosAluno.length);
     }
 }
