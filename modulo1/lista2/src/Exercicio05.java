@@ -3,11 +3,18 @@ import java.util.Scanner;
 public class Exercicio05 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        double[][] matriz = new double[10][3];
+        double[][] matriz = new double[3][3];
+        double[] somaColunaMercado = new double[3];
+        int colunaMaisEmConta = 1;
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
                 System.out.println("Digite o valor da mercadoria " + (i + 1) + " " + (j + 1));
                 matriz[i][j] = scanner.nextDouble();
+                // somando ao digitar os valores
+                somaColunaMercado[i] += matriz[j][i];
+            }
+            if (i > 0 && somaColunaMercado[i] < somaColunaMercado[i - 1]) {
+                colunaMaisEmConta = i + 1;
             }
         }
         // imprimindo a matriz para ficar mais fácil de visualizar e tentar buscar a menor soma das colunas
@@ -17,27 +24,6 @@ public class Exercicio05 {
             }
             System.out.println();
         }
-        // soma das colunas
-        double somaColuna1 = 0;
-        double somaColuna2 = 0;
-        double somaColuna3 = 0;
-        for (int i = 0; i < matriz.length; i++) {
-            for (int j = 0; j < matriz[i].length; j++) {
-                if (j == 0) {
-                    somaColuna1 += matriz[i][j];
-                } else if (j == 1) {
-                    somaColuna2 += matriz[i][j];
-                } else if (j == 2) {
-                    somaColuna3 += matriz[i][j];
-                }
-            }
-        }
-        if (somaColuna1 > somaColuna2 && somaColuna2 > somaColuna3) {
-            System.out.println("A coluna 3 tem a menor soma");
-        } else if (somaColuna1 > somaColuna2 && somaColuna2 < somaColuna3) {
-            System.out.println("A coluna 2 tem a menor soma");
-        } else if (somaColuna1 < somaColuna2 && somaColuna2 < somaColuna3) {
-            System.out.println("A coluna 1 tem a menor soma");
-        }
+        System.out.println("O mercado da coluna " + colunaMaisEmConta + " é o mais em conta!");
     }
 }
