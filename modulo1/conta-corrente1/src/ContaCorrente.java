@@ -3,7 +3,7 @@ public class ContaCorrente {
     String numeroConta;
     int agencia;
     double saldo;
-    final double CHEQUE_ESPECIAL = 500.00;
+    double chequeEspecial;
 
     void imprimirContaCorrente() {
         System.out.println("Nome: " + cliente.nome);
@@ -11,7 +11,7 @@ public class ContaCorrente {
         System.out.println("Número da conta: " + numeroConta + " - Agencia: " + agencia);
 //        System.out.println("Agência: " + agencia);
         System.out.println("Saldo: " + saldo);
-        System.out.println("Cheque especial: " + CHEQUE_ESPECIAL);
+        System.out.println("Cheque especial: " + chequeEspecial);
         System.out.println("---- Contatos ---- ");
 //        for (int i = 0; i < cliente.contatos.length; i++) {
 //            if (cliente.contatos[i].tipo == 2) {
@@ -27,23 +27,13 @@ public class ContaCorrente {
     }
 
     boolean sacar(double valor) {
-        if (valor <= saldo && saldo <= CHEQUE_ESPECIAL) {
+        if (valor <= saldo || valor <= saldo + chequeEspecial) {
             saldo -= valor;
             System.out.printf("Saque de R$ %.2f realizado com sucesso!%n", valor);
-            checarSaldo();
             return true;
         } else {
             System.out.println("Não é possível sacar um valor negativo!");
             return false;
-        }
-    }
-
-    void checarSaldo() {
-        if (saldo < 0) {
-            saldo = CHEQUE_ESPECIAL;
-        }
-        if (saldo == CHEQUE_ESPECIAL) {
-            saldo -= CHEQUE_ESPECIAL;
         }
     }
 
@@ -59,12 +49,12 @@ public class ContaCorrente {
     }
 
     double retornarSaldoComChequeEspecial() {
-        System.out.printf("Saldo com cheque especial: R$ %.2f%n", saldo + CHEQUE_ESPECIAL);
-        return saldo + CHEQUE_ESPECIAL;
+        System.out.printf("Saldo com cheque especial: R$ %.2f%n", saldo + chequeEspecial);
+        return saldo + chequeEspecial;
     }
 
     boolean transferir(ContaCorrente contaDestino, double valor) {
-        if (valor <= saldo) {
+        if (sacar(valor)) {
             saldo -= valor;
             contaDestino.saldo += valor;
             System.out.printf("Transferência de R$ %.2f realizada com sucesso!%n", valor);
