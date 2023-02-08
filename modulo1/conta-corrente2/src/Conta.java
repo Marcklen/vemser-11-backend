@@ -31,16 +31,36 @@ public abstract class Conta implements Movimentacao {
 
     @Override
     public boolean sacar(double valor) {
-        return false;
+        if (valor <= saldo) {
+            saldo -= valor;
+            System.out.printf("Saque de R$ %.2f realizado com sucesso!%n", valor);
+            return true;
+        } else {
+            System.out.println("Não é possível sacar um valor negativo!");
+            return false;
+        }
     }
 
     @Override
     public boolean depositar(double valor) {
-        return false;
+        if (valor > 0) {
+            saldo += valor;
+            System.out.printf("Depósito de R$ %.2f realizado com sucesso!%n", valor);
+            return true;
+        } else {
+            System.out.println("Não é possível depositar um valor negativo!");
+            return false;
+        }
     }
 
     @Override
     public boolean transferir(Conta conta, double valor) {
-        return false;
+        if (sacar(valor)) {
+            conta.depositar(valor);
+            System.out.printf("Transferência de R$ %.2f realizada com sucesso!%n", valor);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
