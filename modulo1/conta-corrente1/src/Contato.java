@@ -4,12 +4,12 @@ public class Contato {
     int tipo;
 
     void imprimirContato() {
-        System.out.println("Contato: " + descricao);
+        System.out.println("Descrição: " + descricao);
         System.out.println("Telefone: " + telefone);
         if (tipo == 1) {
-            System.out.println("Residencial: " + tipo);
+            System.out.println("Residencial");
         } else {
-            System.out.println("Comercial: " + tipo);
+            System.out.println("Comercial");
         }
     }
 }

@@ -16,9 +16,9 @@ public class Endereco {
         System.out.println("Estado: " + estado);
         System.out.println("País: " + pais);
         if (tipo == 1) {
-            System.out.println("Residencial: " + tipo);
+            System.out.println("Residencial");
         } else {
-            System.out.println("Comercial: " + tipo);
+            System.out.println("Comercial");
         }
     }
 }
