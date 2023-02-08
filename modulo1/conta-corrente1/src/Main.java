@@ -68,9 +68,15 @@ public class Main {
         outraContaCorrente.imprimirContaCorrente();
         // fazendo as transações
         contaCorrente.depositar(500.00);
+        outraContaCorrente.depositar(1000.00);
         contaCorrente.retornarSaldoComChequeEspecial();
+        outraContaCorrente.retornarSaldoComChequeEspecial();
         contaCorrente.sacar(200.00);
+        outraContaCorrente.sacar(2500.00);
         contaCorrente.retornarSaldoComChequeEspecial();
+        outraContaCorrente.retornarSaldoComChequeEspecial();
         contaCorrente.transferir(outraContaCorrente, 1000.00);
+        System.out.printf("Saldo da conta %s: %.2f\n", contaCorrente.cliente.nome, contaCorrente.saldo);
+        System.out.printf("Saldo da conta %s: %.2f\n", outraContaCorrente.cliente.nome, outraContaCorrente.saldo);
     }
 }

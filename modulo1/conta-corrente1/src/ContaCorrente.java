@@ -8,32 +8,42 @@ public class ContaCorrente {
     void imprimirContaCorrente() {
         System.out.println("Nome: " + cliente.nome);
         System.out.println("CPF: " + cliente.cpf);
-        System.out.println("Número da conta: " + numeroConta);
-        System.out.println("Agência: " + agencia);
+        System.out.println("Número da conta: " + numeroConta + " - Agencia: " + agencia);
+//        System.out.println("Agência: " + agencia);
         System.out.println("Saldo: " + saldo);
         System.out.println("Cheque especial: " + CHEQUE_ESPECIAL);
         System.out.println("---- Contatos ---- ");
-        for (int i = 0; i < cliente.contatos.length; i++) {
-            if (cliente.contatos[i].tipo == 2) {
-                cliente.contatos[i].imprimirContato();
-            }
-        }
-        System.out.println("---- Endereços ----");
-        for (int i = 0; i < cliente.enderecos.length; i++) {
-            if (cliente.enderecos[i].tipo == 2) {
-                cliente.enderecos[i].imprimirEndereco();
-            }
-        }
+//        for (int i = 0; i < cliente.contatos.length; i++) {
+//            if (cliente.contatos[i].tipo == 2) {
+//                cliente.contatos[i].imprimirContato();
+//            }
+//        }
+//        System.out.println("---- Endereços ----");
+//        for (int i = 0; i < cliente.enderecos.length; i++) {
+//            if (cliente.enderecos[i].tipo == 2) {
+//                cliente.enderecos[i].imprimirEndereco();
+//            }
+//        }
     }
 
     boolean sacar(double valor) {
-        if (valor <= saldo) {
+        if (valor <= saldo && saldo <= CHEQUE_ESPECIAL) {
             saldo -= valor;
             System.out.printf("Saque de R$ %.2f realizado com sucesso!%n", valor);
+            checarSaldo();
             return true;
         } else {
             System.out.println("Não é possível sacar um valor negativo!");
             return false;
+        }
+    }
+
+    void checarSaldo() {
+        if (saldo < 0) {
+            saldo = CHEQUE_ESPECIAL;
+        }
+        if (saldo == CHEQUE_ESPECIAL) {
+            saldo -= CHEQUE_ESPECIAL;
         }
     }
 
