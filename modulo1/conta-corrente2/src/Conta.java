@@ -1,12 +1,12 @@
 public abstract class Conta implements Movimentacao {
     private Cliente cliente;
     private String numeroConta;
-    private int agencia;
+    private String agencia;
     private double saldo;
 
     public Conta(){}
 
-    public Conta(Cliente cliente, String numeroConta, int agencia, double saldo) {
+    public Conta(Cliente cliente, String numeroConta, String agencia, double saldo) {
         this.cliente = cliente;
         this.numeroConta = numeroConta;
         this.agencia = agencia;
@@ -21,9 +21,9 @@ public abstract class Conta implements Movimentacao {
 
     public void setNumeroConta(String numeroConta) { this.numeroConta = numeroConta; }
 
-    public int getAgencia() { return agencia; }
+    public String getAgencia() { return agencia; }
 
-    public void setAgencia(int agencia) { this.agencia = agencia; }
+    public void setAgencia(String agencia) { this.agencia = agencia; }
 
     public double getSaldo() { return saldo; }
 
@@ -31,14 +31,24 @@ public abstract class Conta implements Movimentacao {
 
     @Override
     public boolean sacar(double valor) {
-        if (valor <= saldo) {
-            saldo -= valor;
+        if (valor <= saldo && valor > 0) {
             System.out.printf("Saque de R$ %.2f realizado com sucesso!%n", valor);
+            saldo -= valor;
             return true;
-        } else {
-            System.out.println("Não é possível sacar um valor negativo!");
-            return false;
         }
+        return false;
+//        if (valor <= 0) {
+//            System.out.println("TESTE1 não é possível sacar um valor negativo! - CONTA ABSTRATA");
+//            return false;
+//        } else if (valor <= saldo && valor > 0) {
+//            System.out.printf("Saque de R$ %.2f realizado com sucesso!%n", valor);
+//            saldo -= valor;
+//            return true;
+//        } else {
+//           //System.out.println("TESTE2 Saldo insuficiente para saque! - CONTA ABSTRATA");
+//            return false;
+//        }
+//        return false;
     }
 
     @Override

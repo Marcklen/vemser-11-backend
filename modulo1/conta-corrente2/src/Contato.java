@@ -24,7 +24,7 @@ public class Contato {
     public void setTipo(int tipo) { this.tipo = tipo; }
 
     void imprimirContato() {
-        System.out.println("Descrição: " + descricao + " - Telefone: " + telefone);
+        System.out.println("Descrição '" + descricao + "' - Telefone: " + telefone);
         if (tipo == 1) {
             System.out.println("Residencial");
         } else {

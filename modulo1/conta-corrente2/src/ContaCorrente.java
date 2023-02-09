@@ -5,7 +5,7 @@ public class ContaCorrente extends Conta implements Impressao {
     public ContaCorrente() {
     }
 
-    public ContaCorrente(Cliente cliente, String numeroConta, int agencia, double saldo, double chequeEspecial) {
+    public ContaCorrente(Cliente cliente, String numeroConta, String agencia, double saldo, double chequeEspecial) {
         super(cliente, numeroConta, agencia, saldo);
         this.chequeEspecial = chequeEspecial;
     }
@@ -20,18 +20,23 @@ public class ContaCorrente extends Conta implements Impressao {
 
     @Override
     public boolean sacar(double valor) {
-//        return super.sacar(valor);
-        if (valor > retornarSaldoComChequeEspecial()) {
-            System.out.printf("Saldo insuficiente para saque de R$ %.2f%n", valor);
-            return false;
-        } else if (valor <= retornarSaldoComChequeEspecial()) {
+        if (valor <= getSaldo() && valor > 0) {
+            System.out.printf("Saque de R$ %.2f realizado com sucesso!%n", valor);
             setSaldo(getSaldo() - valor);
-            return super.sacar(valor);
-        } else if (valor < 0) {
-            System.out.println("Valor inválido para saque!!");
-            return false;
+            return true;
         }
         return false;
+//        if (valor > retornarSaldoComChequeEspecial()) {
+//            System.out.printf("Saldo insuficiente para saque de R$ %.2f%n", valor);
+//            return false;
+//        } else if (valor <= retornarSaldoComChequeEspecial()) {
+//            setSaldo(getSaldo() - valor);
+//            return super.sacar(valor);
+//        } else if (valor <= 0) {
+//            System.out.println("Valor inválido para saque!!");
+//            return false;
+//        }
+//        return false;
     }
 
     @Override
