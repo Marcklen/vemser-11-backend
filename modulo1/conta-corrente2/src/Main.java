@@ -14,6 +14,11 @@ public class Main {
         endMiguel[0] = new Endereco(1, "Rua Fortaleza EC", 1918, "Tricolor", "60-111-333", "Fortaleza", "CE", "BR");
         Cliente miguel = new Cliente("Miguel Dourado", "022-333-444-55", contatoMiguel, endMiguel);
         ContaCorrente contaMiguel = new ContaCorrente(miguel, "1234-5", "0569", 1000d, 1000d);
+        ContaPoupanca poupancaMiguel = new ContaPoupanca();
+        poupancaMiguel.setCliente(miguel);
+        poupancaMiguel.setNumeroConta(contaMiguel.getNumeroConta());
+        poupancaMiguel.setAgencia(contaMiguel.getAgencia());
+        poupancaMiguel.setSaldo(contaMiguel.getSaldo());
 
         System.out.println("------------------------------------------");
         System.out.println("IMPRIMINDO DADOS DO CLIENTE - MARCKLEN");
@@ -33,6 +38,7 @@ public class Main {
         System.out.println("------------------------------------------");
         contaMiguel.imprimir();
         System.out.println("-----------------------------------------");
+
         contaMarcklen.depositar(500);
         contaMarcklen.imprimir();
         contaMarcklen.sacar(1000);
@@ -46,5 +52,13 @@ public class Main {
         System.out.println("-----------------------------------------");
         contaMiguel.imprimir();
         System.out.println("-----------------------------------------");
+        poupancaMiguel.creditarTaxa();
+        poupancaMiguel.imprimir();
+        System.out.println("-----------------------------------------");
+        contaMiguel.imprimir();
+        contaMiguel.transferir(poupancaMiguel, 500);
+        System.out.println("-----------------------------------------");
+        poupancaMiguel.imprimir();
+        contaMiguel.imprimir();
     }
 }
