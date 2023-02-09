@@ -16,10 +16,21 @@ public class Main {
         ContaCorrente contaMiguel = new ContaCorrente(miguel, "1234-5", "0569", 1000d, 1000d);
 
         System.out.println("------------------------------------------");
+        System.out.println("IMPRIMINDO DADOS DO CLIENTE - MARCKLEN");
+        System.out.println("------------------------------------------");
+        marcklen.imprimirCliente();
+        System.out.println("------------------------------------------");
         System.out.println("IMPRIMINDO DADOS DA CONTA - MARCKLEN");
+        System.out.println("------------------------------------------");
         contaMarcklen.imprimir();
+
+        System.out.println("------------------------------------------");
+        System.out.println("IMPRIMINDO DADOS DO CLIENTE - MIGUEL");
+        System.out.println("------------------------------------------");
+        miguel.imprimirCliente();
         System.out.println("------------------------------------------");
         System.out.println("IMPRIMINDO DADOS DA CONTA - MIGUEL");
+        System.out.println("------------------------------------------");
         contaMiguel.imprimir();
         System.out.println("-----------------------------------------");
         contaMarcklen.depositar(500);
@@ -34,5 +45,6 @@ public class Main {
         contaMarcklen.imprimir();
         System.out.println("-----------------------------------------");
         contaMiguel.imprimir();
+        System.out.println("-----------------------------------------");
     }
 }

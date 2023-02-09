@@ -20,23 +20,14 @@ public class ContaCorrente extends Conta implements Impressao {
 
     @Override
     public boolean sacar(double valor) {
-        if (valor <= getSaldo() && valor > 0) {
+        if ((valor <= getSaldo() && valor <= retornarSaldoComChequeEspecial())
+                && valor > 0) {
             System.out.printf("Saque de R$ %.2f realizado com sucesso!%n", valor);
             setSaldo(getSaldo() - valor);
             return true;
         }
+        System.out.println("Valor inválido para saque!!");
         return false;
-//        if (valor > retornarSaldoComChequeEspecial()) {
-//            System.out.printf("Saldo insuficiente para saque de R$ %.2f%n", valor);
-//            return false;
-//        } else if (valor <= retornarSaldoComChequeEspecial()) {
-//            setSaldo(getSaldo() - valor);
-//            return super.sacar(valor);
-//        } else if (valor <= 0) {
-//            System.out.println("Valor inválido para saque!!");
-//            return false;
-//        }
-//        return false;
     }
 
     @Override
