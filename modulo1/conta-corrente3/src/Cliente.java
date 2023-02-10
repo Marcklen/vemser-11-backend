@@ -33,12 +33,18 @@ public class Cliente {
     void imprimirCliente() {
         System.out.println("Nome: " + nome);
         System.out.println("CPF: " + cpf);
+        imprimirContato();
+        imprimirEndereco();
+    }
+    void imprimirContato() {
         System.out.println("-------- Contatos --------");
         for (int i = 0; i < contatos.size(); i++) {
             if (contatos.get(i) != null) {
                 contatos.get(i).imprimirContato();
             }
         }
+    }
+    void imprimirEndereco() {
         System.out.println("-------- Endereços --------");
         for (Endereco endereco : enderecos) {
             if (endereco != null) {

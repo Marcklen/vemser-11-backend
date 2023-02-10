@@ -17,16 +17,18 @@ public class ContaPagamento extends Conta implements Impressao {
 
     @Override
     public boolean sacar(double valor) {
-        if (valor < 0) {
-            System.out.println("Valor inválido para saque");
-            return false;
-        } else if (valor >= this.getSaldo() + TAXA_SAQUE) {
-            System.out.println("Saldo insuficiente para saque");
+        if (valor < 0 || valor >= this.getSaldo() - TAXA_SAQUE) {
+            System.out.println("Valor inválido ou Saldo Insuficiente!");
             return false;
         } else {
             super.setSaldo(this.getSaldo() - valor - TAXA_SAQUE);
             System.out.println("Saque realizado com sucesso");
             return true;
         }
+    }
+
+    @Override
+    public boolean transferir(Conta conta, double valor) {
+        return super.transferir(conta, valor);
     }
 }
