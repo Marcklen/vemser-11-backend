@@ -31,12 +31,16 @@ public class Cliente {
     void imprimirCliente() {
         System.out.println("Nome: " + nome);
         System.out.println("CPF: " + cpf);
+    }
+    void imprimirContato() {
         System.out.println("-------- Contatos --------");
         for (int i = 0; i < contatos.length; i++) {
             if (contatos[i] != null) {
                 contatos[i].imprimirContato();
             }
         }
+    }
+    void imprimirEndereco() {
         System.out.println("-------- Endereços --------");
         for (int i = 0; i < enderecos.length; i++) {
             if (enderecos[i] != null) {
