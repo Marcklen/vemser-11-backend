@@ -1,15 +1,17 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cliente {
     private String nome;
     private String cpf;
-    private Contato contatos[];
-    private Endereco enderecos[];
+    private List<Contato> contatos = new ArrayList<>();
+    private List<Endereco> enderecos = new ArrayList<>();
 
     public Cliente() { }
-    public Cliente(String nome, String cpf, Contato contatos[], Endereco enderecos[]) {
+
+    public Cliente(String nome, String cpf) {
         this.nome = nome;
         this.cpf = cpf;
-        this.contatos = contatos;
-        this.enderecos = enderecos;
     }
 
     public String getNome() { return nome; }
@@ -20,27 +22,27 @@ public class Cliente {
 
     public void setCpf(String cpf) { this.cpf = cpf; }
 
-    public Contato[] getContatos() { return contatos; }
+    public List<Contato> getContatos() { return contatos; }
 
-    public void setContatos(Contato[] contatos) { this.contatos = contatos; }
+    public void setContatos(Contato contatos) { this.contatos.add(contatos); }
 
-    public Endereco[] getEnderecos() { return enderecos; }
+    public List<Endereco> getEnderecos() { return enderecos; }
 
-    public void setEnderecos(Endereco[] enderecos) { this.enderecos = enderecos; }
+    public void setEnderecos(Endereco enderecos) { this.enderecos.add(enderecos); }
 
     void imprimirCliente() {
         System.out.println("Nome: " + nome);
         System.out.println("CPF: " + cpf);
         System.out.println("-------- Contatos --------");
-        for (int i = 0; i < contatos.length; i++) {
-            if (contatos[i] != null) {
-                contatos[i].imprimirContato();
+        for (int i = 0; i < contatos.size(); i++) {
+            if (contatos.get(i) != null) {
+                contatos.get(i).imprimirContato();
             }
         }
         System.out.println("-------- Endereços --------");
-        for (int i = 0; i < enderecos.length; i++) {
-            if (enderecos[i] != null) {
-                enderecos[i].imprimirEndereco();
+        for (Endereco endereco : enderecos) {
+            if (endereco != null) {
+                endereco.imprimirEndereco();
             }
         }
     }

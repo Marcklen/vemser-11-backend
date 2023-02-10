@@ -37,18 +37,6 @@ public abstract class Conta implements Movimentacao {
             return true;
         }
         return false;
-//        if (valor <= 0) {
-//            System.out.println("TESTE1 não é possível sacar um valor negativo! - CONTA ABSTRATA");
-//            return false;
-//        } else if (valor <= saldo && valor > 0) {
-//            System.out.printf("Saque de R$ %.2f realizado com sucesso!%n", valor);
-//            saldo -= valor;
-//            return true;
-//        } else {
-//           //System.out.println("TESTE2 Saldo insuficiente para saque! - CONTA ABSTRATA");
-//            return false;
-//        }
-//        return false;
     }
 
     @Override

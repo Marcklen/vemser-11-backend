@@ -19,7 +19,7 @@ public class ContaPoupanca extends Conta implements Impressao {
         System.out.println("-------- Dados da conta poupança --------");
         System.out.println("Cliente: " + this.getCliente().getNome());
         System.out.println("Agência: " + this.getAgencia() + " - Conta: " + this.getNumeroConta());
-        System.out.printf("Saldo: R$%.2f%n", this.getSaldo());
+        System.out.printf("Saldo: R$ %.2f%n", this.getSaldo());
         System.out.println("Taxa de Rendimento: " + JUROS_MENSAL + " % ao mês");
     }
 }
