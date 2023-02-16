@@ -66,19 +66,39 @@ VALUES(SEQ_BAIRRO.NEXTVAL, 8, 4, 'JOESLER VILLAGE');
 
 /*
 INSERT INTO VEM_SER.ENDERECO
-(ID_ENDERECO, ID_BAIRRO, ID_CIDADE, LOGRADOURDO, NUMERO, COMPLEMENTO, CEP)
-VALUES(SEQ_ENDERECO.NEXTVAL, 19, 8, 'RUA ONDE ANDA VOCE', 0235, 'TOQUINHO/VINICIUS', '96550-669');
+(ID_ENDERECO, ID_BAIRRO, ID_CIDADE, LOGRADOURO, NUMERO, COMPLEMENTO, CEP)
+VALUES(SEQ_ENDERECO.NEXTVAL, 19, 8, 'AV. ESTRADA DA POSSE', 15, 'FUNK DAS ANTIGAS', '08259-101');
 */
 
+SELECT * FROM VEM_SER.ENDERECO e ORDER BY e.ID_BAIRRO , e.ID_CIDADE; 
 
---SELECT * FROM VEM_SER.ENDERECO e;
---SELECT * FROM VEM_SER.ESTADO es;
---SELECT * FROM VEM_SER.CIDADE c ORDER BY ID_CIDADE;
-SELECT * FROM VEM_SER.BAIRRO b ORDER BY ID_BAIRRO;
---SELECT * FROM VEM_SER.PAIS p;
-
---DELETE FROM VEM_SER.PAIS p WHERE p.ID_PAIS = 3;
-
+---------------- Exercio TASK02 ---------------
+-- selecionar todos os paises por ordem decrescente
+SELECT * FROM VEM_SER.PAIS p ORDER BY p.ID_PAIS DESC;
+--------------------------------------------
+-- selecionar logradouro e cep dos endereços porém somente os logradouros que comecem com a letra 'a' minusculo ou maiusculo
+SELECT LOGRADOURO, CEP FROM VEM_SER.ENDERECO e WHERE e.LOGRADOURO LIKE UPPER ('a%');
+--ALTER TABLE VEM_SER.ENDERECO RENAME COLUMN LOGRADOURDO TO LOGRADOURO;
+--------------------------------------------
+-- selecionar todos os endereços que tenham 0 no final do CEP
+SELECT * FROM VEM_SER.ENDERECO e WHERE e.CEP LIKE '%0';
+--------------------------------------------
+-- selecionar todos os endereços que tenham numeros entre 1 e 100 (coloquei entre 1 e 200 pois nao tenho menores que 100).
+SELECT * FROM VEM_SER.ENDERECO e WHERE e.NUMERO BETWEEN '1' AND '200'; -- vai aparecer somente 1 endereco
+--------------------------------------------
+-- selecionar todos os endereços que comecem por RUA e ordernar pelo CEP de forma DESC
+SELECT * FROM VEM_SER.ENDERECO e WHERE e.LOGRADOURO LIKE UPPER('rua%') ORDER BY e.CEP DESC;
+--------------------------------------------
+-- selecionar a quantidade de enderecos cadastrados na tabela
+SELECT COUNT (*) FROM VEM_SER.ENDERECO e;
+--------------------------------------------
+-- selecionar a quantidade de enderecos cadastrados agrupados pelo ID_CIDADE
+SELECT COUNT (*) FROM VEM_SER.ENDERECO e GROUP BY e.ID_CIDADE;
+--------------------------------------------
+-----------------------------------------------------------------------------
+----------- DELETE 2 PAISES QUE CRIEI PARA EXECUTAR ALGUNS TESTES -----------
+--DELETE FROM VEM_SER.PAIS p WHERE p.ID_PAIS = 4;
+-----------------------------------------------------------------------------
 -- CRIANDO SEQUENCES
 /* 
 CREATE SEQUENCE VEM_SER.SEQ_ENDERECO
@@ -86,22 +106,7 @@ CREATE SEQUENCE VEM_SER.SEQ_ENDERECO
 	INCREMENT BY 1
 	NOCACHE NOCYCLE;
 */
-
+-----------------------------------------------------------------------------
 -- DROP TABLE VEM_SER.PAIS  
 -- DROP SEQUENCE VEM_SER.SEQ_PAIS
-
-
-/** OUTRAS MANEIRAS DE CRIAÇÃO E ALTERAÇÃO DE TABELA PÓS CRIAÇÃO
-
-CREATE TABLE VEM_SER.ESTADO(
-    id_estado NUMBER PRIMARY KEY NOT NULL,
-    nome VARCHAR2(50) UNIQUE NOT NULL
-);
-
-ALTER TABLE VEM_SER.ESTADO
-ADD id_pais INT NOT NULL;
-
-ALTER TABLE VEM_SER.ESTADO
-ADD CONSTRAINT FK_ID_PAIS FOREIGN KEY ( id_pais ) REFERENCES PAIS( id_pais );
-
-***/
+-----------------------------------------------------------------------------
