@@ -82,9 +82,10 @@ SELECT LOGRADOURO, CEP FROM VEM_SER.ENDERECO e WHERE e.LOGRADOURO LIKE UPPER ('a
 --------------------------------------------
 -- selecionar todos os endereços que tenham 0 no final do CEP
 SELECT * FROM VEM_SER.ENDERECO e WHERE e.CEP LIKE '%0';
+-- SELECT * FROM VEM_SER.ENDERECO e WHERE TRIM (e.CEP) LIKE '%0';
 --------------------------------------------
 -- selecionar todos os endereços que tenham numeros entre 1 e 100 (coloquei entre 1 e 200 pois nao tenho menores que 100).
-SELECT * FROM VEM_SER.ENDERECO e WHERE e.NUMERO BETWEEN '1' AND '200'; -- vai aparecer somente 1 endereco
+SELECT * FROM VEM_SER.ENDERECO e WHERE e.NUMERO BETWEEN 1 AND 200; -- vai aparecer somente 1 endereco
 --------------------------------------------
 -- selecionar todos os endereços que comecem por RUA e ordernar pelo CEP de forma DESC
 SELECT * FROM VEM_SER.ENDERECO e WHERE e.LOGRADOURO LIKE UPPER('rua%') ORDER BY e.CEP DESC;
@@ -93,7 +94,9 @@ SELECT * FROM VEM_SER.ENDERECO e WHERE e.LOGRADOURO LIKE UPPER('rua%') ORDER BY 
 SELECT COUNT (*) FROM VEM_SER.ENDERECO e;
 --------------------------------------------
 -- selecionar a quantidade de enderecos cadastrados agrupados pelo ID_CIDADE
-SELECT COUNT (*) FROM VEM_SER.ENDERECO e GROUP BY e.ID_CIDADE;
+SELECT ID_CIDADE "id_cidade", 
+(SELECT NOME FROM VEM_SER.CIDADE c WHERE c.ID_CIDADE = e.ID_CIDADE) AS "nome_cidade",
+COUNT (*) FROM VEM_SER.ENDERECO e GROUP BY e.ID_CIDADE;
 --------------------------------------------
 -----------------------------------------------------------------------------
 ----------- DELETE 2 PAISES QUE CRIEI PARA EXECUTAR ALGUNS TESTES -----------
