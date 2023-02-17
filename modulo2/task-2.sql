@@ -113,3 +113,24 @@ CREATE SEQUENCE VEM_SER.SEQ_ENDERECO
 -- DROP TABLE VEM_SER.PAIS  
 -- DROP SEQUENCE VEM_SER.SEQ_PAIS
 -----------------------------------------------------------------------------
+
+SELECT * FROM VEM_SER.ENDERECO e;
+-- SELECT LOGRADOURO, COMPLEMENTO, ID_ENDERECO 
+-- FROM VEM_SER.ENDERECO e WHERE E.ID_ENDERECO IN (2,3);
+UPDATE 
+	VEM_SER.ENDERECO e
+SET
+	e.NUMERO = 999999
+WHERE
+	e.ID_ENDERECO = 4;
+-----------------------------------------------------------------------------
+DELETE FROM
+	VEM_SER.ENDERECO e
+WHERE
+	e.ID_ENDERECO = (SELECT MAX(e.ID_ENDERECO) FROM VEM_SER.ENDERECO e);
+-----------------------------------------------------------------------------
+DELETE FROM
+	VEM_SER.ENDERECO e
+WHERE
+	e.NUMERO = 1986;
+-----------------------------------------------------------------------------
