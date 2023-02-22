@@ -77,7 +77,7 @@ SELECT * FROM VEM_SER.ENDERECO e ORDER BY e.ID_BAIRRO , e.ID_CIDADE;
 SELECT * FROM VEM_SER.PAIS p ORDER BY p.ID_PAIS DESC;
 --------------------------------------------
 -- selecionar logradouro e cep dos endereços porém somente os logradouros que comecem com a letra 'a' minusculo ou maiusculo
-SELECT LOGRADOURO, CEP FROM VEM_SER.ENDERECO e WHERE e.LOGRADOURO LIKE UPPER ('a%');
+SELECT LOGRADOURO, CEP FROM VEM_SER.ENDERECO e WHERE UPPER (e.LOGRADOURO) LIKE UPPER ('a%');
 --ALTER TABLE VEM_SER.ENDERECO RENAME COLUMN LOGRADOURDO TO LOGRADOURO;
 --------------------------------------------
 -- selecionar todos os endereços que tenham 0 no final do CEP
@@ -88,7 +88,7 @@ SELECT * FROM VEM_SER.ENDERECO e WHERE e.CEP LIKE '%0';
 SELECT * FROM VEM_SER.ENDERECO e WHERE e.NUMERO BETWEEN 1 AND 200; -- vai aparecer somente 1 endereco
 --------------------------------------------
 -- selecionar todos os endereços que comecem por RUA e ordernar pelo CEP de forma DESC
-SELECT * FROM VEM_SER.ENDERECO e WHERE e.LOGRADOURO LIKE UPPER('rua%') ORDER BY e.CEP DESC;
+SELECT * FROM VEM_SER.ENDERECO e WHERE UPPER (e.LOGRADOURO) LIKE UPPER ('rua%') ORDER BY e.CEP DESC;
 --------------------------------------------
 -- selecionar a quantidade de enderecos cadastrados na tabela
 SELECT COUNT (*) FROM VEM_SER.ENDERECO e;
