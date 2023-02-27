@@ -1,0 +1,104 @@
+{
+	"info": {
+		"_postman_id": "11b8ff77-5217-47cd-87cb-7af76e3c8f38",
+		"name": "Exercicio - 01",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19352868"
+	},
+	"item": [
+		{
+			"name": "Buscar Posts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{jsonplace}}/posts",
+					"host": [
+						"{{jsonplace}}"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criar Posts",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\" : \"foo2\",\r\n    \"body\"  : \"bar2\",\r\n    \"userId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{jsonplace}}/posts",
+					"host": [
+						"{{jsonplace}}"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Atualizar Posts",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\" : \"foo2_withUpdating\",\r\n    \"body\"  : \"bar2_withUpdating\",\r\n    \"userId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{jsonplace}}/posts/2",
+					"host": [
+						"{{jsonplace}}"
+					],
+					"path": [
+						"posts",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Excluir Posts",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{jsonplace}}/posts/2",
+					"host": [
+						"{{jsonplace}}"
+					],
+					"path": [
+						"posts",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "jsonplace",
+			"value": "https://jsonplaceholder.typicode.com"
+		}
+	]
+}
