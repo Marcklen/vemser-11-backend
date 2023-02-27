@@ -1,0 +1,508 @@
+{
+	"info": {
+		"_postman_id": "90c98bb0-2dae-4ba3-ae54-0a23b9faba7b",
+		"name": "Task-1-1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19352868"
+	},
+	"item": [
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "Buscar Comments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{jsonplace}}/comments/?postId=1",
+							"host": [
+								"{{jsonplace}}"
+							],
+							"path": [
+								"comments",
+								""
+							],
+							"query": [
+								{
+									"key": "postId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Comments",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"criando um novo comentario\",\r\n    \"email\": \"Marcklen@comentando.com.br\",\r\n    \"body\": \"este comentário para ser considerado de fato um comentário, ele tem que ter contexto e não ser apenas um comentário por asim dizer\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{jsonplace}}/comments",
+							"host": [
+								"{{jsonplace}}"
+							],
+							"path": [
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Comments",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"postId\": 1,\r\n    \"id\": 1,\r\n    \"name\": \"atualizando um novo comentario existente\",\r\n    \"email\": \"Marcklen@comentando.com.br\",\r\n    \"body\": \"este comentário para ser considerado de fato um comentário, ele tem que ter contexto e não ser apenas um comentário por asim dizer e foi atualizado com sucesso\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{jsonplace}}/comments/1",
+							"host": [
+								"{{jsonplace}}"
+							],
+							"path": [
+								"comments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir Comments",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{jsonplace}}/comments/1",
+							"host": [
+								"{{jsonplace}}"
+							],
+							"path": [
+								"comments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Albums",
+			"item": [
+				{
+					"name": "Buscar Albums",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{jsonplace}}/albums",
+							"host": [
+								"{{jsonplace}}"
+							],
+							"path": [
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Albums",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"Legiao Urbana vol2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{jsonplace}}/albums",
+							"host": [
+								"{{jsonplace}}"
+							],
+							"path": [
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Albums",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 101,\r\n    \"title\": \"Legiao Urbana acustico mtv\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{jsonplace}}/albums/1",
+							"host": [
+								"{{jsonplace}}"
+							],
+							"path": [
+								"albums",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir Albums",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{jsonplace}}/albums/1",
+							"host": [
+								"{{jsonplace}}"
+							],
+							"path": [
+								"albums",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Photos",
+			"item": [
+				{
+					"name": "Buscar Photos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{jsonplace}}/photos",
+							"host": [
+								"{{jsonplace}}"
+							],
+							"path": [
+								"photos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Photos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"accusamus beatae ad facilis cum similique qui sunt\",\r\n    \"url\": \"https://via.placeholder.com/600/92c952\",\r\n    \"thumbnailUrl\": \"https://via.placeholder.com/150/92c952\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{jsonplace}}/photos",
+							"host": [
+								"{{jsonplace}}"
+							],
+							"path": [
+								"photos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Photos",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5001,\r\n    \"title\": \"Album de fotos em familia\",\r\n    \"url\": \"https://via.placeholder.com/600/92c952\",\r\n    \"thumbnailUrl\": \"https://via.placeholder.com/150/92c952\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{jsonplace}}/photos/1",
+							"host": [
+								"{{jsonplace}}"
+							],
+							"path": [
+								"photos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir Photos",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{jsonplace}}/photos/1",
+							"host": [
+								"{{jsonplace}}"
+							],
+							"path": [
+								"photos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Todos",
+			"item": [
+				{
+					"name": "Buscar Todos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{jsonplace}}/todos",
+							"host": [
+								"{{jsonplace}}"
+							],
+							"path": [
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Todos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"lista de tarefas a fazer\",\r\n    \"completed\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{jsonplace}}/todos",
+							"host": [
+								"{{jsonplace}}"
+							],
+							"path": [
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Todos",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"lista de tarefas a fazer atualizada\",\r\n    \"completed\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{jsonplace}}/todos/1",
+							"host": [
+								"{{jsonplace}}"
+							],
+							"path": [
+								"todos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir Todos",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{jsonplace}}/todos/1",
+							"host": [
+								"{{jsonplace}}"
+							],
+							"path": [
+								"todos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Buscar Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{jsonplace}}/users",
+							"host": [
+								"{{jsonplace}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Users",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Marcklen Guimarães\",\r\n    \"username\": \"Marck\",\r\n    \"email\": \"marck@april.biz\",\r\n    \"address\": {\r\n        \"street\": \"Kulas Light Blue Moon\",\r\n        \"suite\": \"Apt. 556677\",\r\n        \"city\": \"Fortaleza\",\r\n        \"zipcode\": \"85 92998-3874\",\r\n        \"geo\": {\r\n            \"lat\": \"-22.1234\",\r\n            \"lng\": \"55.5678\"\r\n            }\r\n        },\r\n    \"phone\": \"1-123-456-7891 x01234\",\r\n    \"website\": \"testando.org\",\r\n    \"company\": {\r\n        \"name\": \"Romaguera-Crona New User\",\r\n        \"catchPhrase\": \"Marcklen-Monteiro client-server neural-net\",\r\n        \"bs\": \"harness real-talvez-de-certo\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{jsonplace}}/users",
+							"host": [
+								"{{jsonplace}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request Copy",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Marcklen Guimarães Atualizado\",\r\n    \"username\": \"Marck\",\r\n    \"email\": \"marck@april.biz\",\r\n    \"address\": {\r\n        \"street\": \"Kulas Light Blue Moon\",\r\n        \"suite\": \"Apt. 556677\",\r\n        \"city\": \"Fortaleza\",\r\n        \"zipcode\": \"85 92998-3874\",\r\n        \"geo\": {\r\n            \"lat\": \"-22.1234\",\r\n            \"lng\": \"55.5678\"\r\n            }\r\n        },\r\n    \"phone\": \"1-123-456-7891 x01234\",\r\n    \"website\": \"testando.org\",\r\n    \"company\": {\r\n        \"name\": \"Romaguera-Crona New User\",\r\n        \"catchPhrase\": \"Marcklen-Monteiro client-server neural-net\",\r\n        \"bs\": \"harness real-talvez-de-certo\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{jsonplace}}/users/1",
+							"host": [
+								"{{jsonplace}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{jsonplace}}/users/1",
+							"host": [
+								"{{jsonplace}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "jsonplace",
+			"value": "https://jsonplaceholder.typicode.com/"
+		}
+	]
+}
