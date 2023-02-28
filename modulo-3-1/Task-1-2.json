@@ -154,7 +154,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"tipoContato\": \"COMERCIAL\",\r\n    \"telefone\": \"(85)98879-8959\",\r\n    \"descricao\": \"celular\",\r\n    \"idContato\": 1736\r\n}",
+							"raw": "{\r\n    \"tipoContato\": \"COMERCIAL\",\r\n    \"telefone\": \"(85)98879-8959\",\r\n    \"descricao\": \"celular\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
