@@ -1,0 +1,301 @@
+{
+	"info": {
+		"_postman_id": "f9f0a12b-2bb0-4636-841d-f198ac6748bc",
+		"name": "Task-1-2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19352868"
+	},
+	"item": [
+		{
+			"name": "Pessoa",
+			"item": [
+				{
+					"name": "Buscar Pessoa",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{vem-ser-api}}/pessoa",
+							"host": [
+								"{{vem-ser-api}}"
+							],
+							"path": [
+								"pessoa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Pessoa",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Marta Golpista Foi Presa\",\r\n    \"dataNascimento\": \"2000-05-09\",\r\n    \"cpf\": \"01234567890\",\r\n    \"email\": \"marta@golpista.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{vem-ser-api}}/pessoa/9915",
+							"host": [
+								"{{vem-ser-api}}"
+							],
+							"path": [
+								"pessoa",
+								"9915"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir Pessoa",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{vem-ser-api}}/pessoa/9915",
+							"host": [
+								"{{vem-ser-api}}"
+							],
+							"path": [
+								"pessoa",
+								"9915"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar Pessoa",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Marcklen Guimarães\",\r\n    \"dataNascimento\": \"1918-01-01\",\r\n    \"cpf\": \"01234567890\",\r\n    \"email\": \"leao@1918.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{vem-ser-api}}/pessoa",
+							"host": [
+								"{{vem-ser-api}}"
+							],
+							"path": [
+								"pessoa"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contato",
+			"item": [
+				{
+					"name": "Buscar Contato",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{vem-ser-api}}/contato",
+							"host": [
+								"{{vem-ser-api}}"
+							],
+							"path": [
+								"contato"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Contato por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{vem-ser-api}}/contato/9927",
+							"host": [
+								"{{vem-ser-api}}"
+							],
+							"path": [
+								"contato",
+								"9927"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Contato por ID",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipoContato\": \"COMERCIAL\",\r\n    \"telefone\": \"(85)98879-8959\",\r\n    \"descricao\": \"celular\",\r\n    \"idContato\": 1736\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{vem-ser-api}}/contato/9927",
+							"host": [
+								"{{vem-ser-api}}"
+							],
+							"path": [
+								"contato",
+								"9927"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Contato por ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idPessoa\": 9927,\r\n    \"tipoContato\": \"COMERCIAL\",\r\n    \"telefone\": \"(85)98879-8959\",\r\n    \"descricao\": \"whatsapp\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{vem-ser-api}}/contato/1787",
+							"host": [
+								"{{vem-ser-api}}"
+							],
+							"path": [
+								"contato",
+								"1787"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir Contato por ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{vem-ser-api}}/contato/1736",
+							"host": [
+								"{{vem-ser-api}}"
+							],
+							"path": [
+								"contato",
+								"1736"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Autenticar - Auth",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ2ZW1zZXItYXBpIiwianRpIjoiMiIsImNhcmdvcyI6WyJST0xFX1VTVUFSSU8iLCJST0xFX01BUktFVElORyIsIlJPTEVfQURNSU4iXSwiaWF0IjoxNjc3NTQxNTc2LCJleHAiOjE2Nzc2Mjc5NzZ9.hz_iOQ45rRZPyqwrKBppILEW4KLM7h-E8xUiRu9brfY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"login\": \"admin\",\r\n    \"senha\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{vem-ser-api}}/auth",
+					"host": [
+						"{{vem-ser-api}}"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "vem-ser-api",
+			"value": "http://vemser-dbc.dbccompany.com.br:39000/vemser/dbc-pessoa-api"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ2ZW1zZXItYXBpIiwianRpIjoiMiIsImNhcmdvcyI6WyJST0xFX1VTVUFSSU8iLCJST0xFX01BUktFVElORyIsIlJPTEVfQURNSU4iXSwiaWF0IjoxNjc3NTQxNTc2LCJleHAiOjE2Nzc2Mjc5NzZ9.hz_iOQ45rRZPyqwrKBppILEW4KLM7h-E8xUiRu9brfY"
+		}
+	]
+}
