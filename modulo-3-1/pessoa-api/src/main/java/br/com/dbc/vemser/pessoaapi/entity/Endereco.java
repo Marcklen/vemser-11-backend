@@ -1,6 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.entity;
 
 public class Endereco {
+    private Integer idEndereco;
     private Integer idPessoa;
     private TipoEndereco tipo;
     private String logradouro;
@@ -11,8 +12,28 @@ public class Endereco {
     private String estado;
     private String pais;
 
+    public Endereco(){}
+
+    public Endereco(Integer idEndereco, Integer idPessoa, TipoEndereco tipo, String logradouro, Integer numero,
+                    String complemento, String cep, String cidade, String estado, String pais) {
+        this.idEndereco = idEndereco;
+        this.idPessoa = idPessoa;
+        this.tipo = tipo;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.cep = cep;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.pais = pais;
+    }
+
     public Integer getIdPessoa() { return idPessoa; }
+
     public void setIdPessoa(Integer idPessoa) { this.idPessoa = idPessoa; }
+
+    public Integer getIdEndereco() { return idEndereco; }
+    public void setIdEndereco(Integer idEndereco) { this.idEndereco = idEndereco; }
     public TipoEndereco getTipo() { return tipo; }
     public void setTipo(TipoEndereco tipo) { this.tipo = tipo; }
     public String getLogradouro() { return logradouro; }
