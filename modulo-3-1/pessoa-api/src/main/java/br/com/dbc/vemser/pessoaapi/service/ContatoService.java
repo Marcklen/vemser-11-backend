@@ -13,7 +13,9 @@ public class ContatoService {
         contatoRepository = new ContatoRepository();
     }
 
-    public Contato create(Contato contato) {
+    public Contato create(Integer idPessoa, Contato contato) throws Exception {
+        getContato(idPessoa); // só para validar se a pessoa existe, se não existir, lança uma exceção
+        contato.setIdPessoa(idPessoa);
         return contatoRepository.create(contato);
     }
 
@@ -36,8 +38,8 @@ public class ContatoService {
         contatoRepository.delete(contatoRecuperado);
     }
 
-    public List<Contato> findById(Integer idPessoa) {
-        return contatoRepository.findById(idPessoa);
+    public List<Contato> findByIdPessoa(Integer idPessoa) {
+        return contatoRepository.findByIdPessoa(idPessoa);
     }
 
     private Contato getContato(Integer id) throws Exception {

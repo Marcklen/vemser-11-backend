@@ -41,7 +41,7 @@ public class ContatoRepository {
         listaContatos.remove(contato);
     }
 
-    public List<Contato> findById(Integer idPessoa) {
+    public List<Contato> findByIdPessoa(Integer idPessoa) {
         return listaContatos.stream()
                 .filter(contato -> contato.getIdPessoa().equals(idPessoa))
                 .collect(Collectors.toList());

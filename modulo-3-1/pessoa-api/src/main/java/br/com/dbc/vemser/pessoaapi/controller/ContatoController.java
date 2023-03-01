@@ -20,14 +20,15 @@ public class ContatoController {
         return contatoService.lista();
     }
 
-    @GetMapping("/{idPessoa}/pessoa")
-    public List<Contato> findById(@PathVariable("idPessoa")Integer idPessoa) {
-        return contatoService.findById(idPessoa);
+    @GetMapping("/{idPessoa}")
+    public List<Contato> findByIdPessoa(@PathVariable("idPessoa")Integer idPessoa) {
+        return contatoService.findByIdPessoa(idPessoa);
     }
 
-    @PostMapping
-    public Contato create(@RequestBody Contato contato) {
-        return contatoService.create(contato);
+    @PostMapping("/{idPessoa}")
+    public Contato create(@PathVariable("idPessoa")Integer idPessoa,
+                          @RequestBody Contato contato) throws Exception {
+        return contatoService.create(idPessoa, contato);
     }
 
     @PutMapping("/{idContato}")
