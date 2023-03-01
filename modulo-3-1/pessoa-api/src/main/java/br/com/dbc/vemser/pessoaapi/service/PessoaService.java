@@ -2,6 +2,8 @@ package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +17,8 @@ public class PessoaService {
         this.pessoaRepository = pessoaRepository;
     }
 
-    public Pessoa create(Pessoa pessoa) {
+    public Pessoa create(Pessoa pessoa) throws Exception{
+        validarPessoa(pessoa);
         return pessoaRepository.create(pessoa);
     }
 
@@ -45,9 +48,7 @@ public class PessoaService {
 
     public Pessoa findById(Integer id) {
         return pessoaRepository.findById(id);
-//        return getPessoa(id);
     }
-
 
     public Pessoa getPessoa(Integer id) throws Exception {
         Pessoa pessoaRecuperada = pessoaRepository.list().stream()
@@ -55,5 +56,19 @@ public class PessoaService {
                 .findFirst()
                 .orElseThrow(() -> new Exception("Pessoa não encontrada!"));
         return pessoaRecuperada;
+    }
+
+    // validador de pessoas (nome, cpf e data de nascimento)
+    public boolean validarPessoa(Pessoa pessoa) throws Exception{
+        if (StringUtils.isBlank(pessoa.getNome())) {
+            throw new Exception("Nome não pode ser vazio!");
+        }
+        if (ObjectUtils.isEmpty(pessoa.getDataNascimento())){
+            throw new Exception("Data de nascimento não pode ser vazia!");
+        }
+        if (StringUtils.isBlank(pessoa.getCpf()) || StringUtils.length(pessoa.getCpf()) != 11) {
+            throw new Exception("CPF não pode ser vazio e deve ter 11 dígitos!");
+        }
+        return true;
     }
 }
