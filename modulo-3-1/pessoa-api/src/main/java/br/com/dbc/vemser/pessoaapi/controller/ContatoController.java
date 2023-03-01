@@ -10,9 +10,9 @@ import java.util.List;
 @RequestMapping("/contato") // http://localhost:8080/contato
 public class ContatoController {
 
-    private ContatoService contatoService;
-    public ContatoController() {
-        contatoService = new ContatoService();
+    private final ContatoService contatoService;
+    public ContatoController(ContatoService contatoService) {
+        this.contatoService = contatoService;
     }
 
     @GetMapping
@@ -21,7 +21,7 @@ public class ContatoController {
     }
 
     @GetMapping("/{idPessoa}")
-    public List<Contato> findByIdPessoa(@PathVariable("idPessoa")Integer idPessoa) {
+    public List<Contato> findByIdPessoa(@PathVariable("idPessoa")Integer idPessoa) throws Exception {
         return contatoService.findByIdPessoa(idPessoa);
     }
 

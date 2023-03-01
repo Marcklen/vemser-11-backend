@@ -3,18 +3,23 @@ package br.com.dbc.vemser.pessoaapi.repository;
 import br.com.dbc.vemser.pessoaapi.entity.Contato;
 import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.entity.TipoContato;
+import br.com.dbc.vemser.pessoaapi.service.PessoaService;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+@Repository
 public class ContatoRepository {
 
     private List<Contato> listaContatos = new ArrayList<>();
     private AtomicInteger COUNTER = new AtomicInteger();
+    private final PessoaService pessoaService;
 
-    public ContatoRepository() {
+    public ContatoRepository(PessoaService pessoaService) {
+        this.pessoaService = pessoaService;
         listaContatos.add(new Contato(COUNTER.incrementAndGet() /*1*/, 1, TipoContato.valueOf("RESIDENCIAL"), "85-98801-2345", "Casa"));
         listaContatos.add(new Contato(COUNTER.incrementAndGet() /*2*/, 1, TipoContato.valueOf("COMERCIAL"), "85-98112-6789", "Trabalho"));
         listaContatos.add(new Contato(COUNTER.incrementAndGet() /*3*/, 2, TipoContato.valueOf("RESIDENCIAL"), "85-98903-1023", "Casa"));
@@ -29,6 +34,7 @@ public class ContatoRepository {
 
     public Contato create(Contato contato) {
         contato.setIdContato(COUNTER.incrementAndGet());
+        contato.setIdPessoa(pessoaService.findById(contato.getIdPessoa()).getIdPessoa());
         listaContatos.add(contato);
         return contato;
     }
