@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Repository
 public class EnderecoRepository {
@@ -15,6 +16,7 @@ public class EnderecoRepository {
     public List<Endereco> listaEnderecos = new ArrayList<>();
     private AtomicInteger COUNTER = new AtomicInteger();
     private final PessoaService pessoaService;
+
     public EnderecoRepository(PessoaService pessoaService) {
         this.pessoaService = pessoaService;
         listaEnderecos.add(new Endereco(COUNTER.incrementAndGet(), 1, TipoEndereco.valueOf("RESIDENCIAL"), "Rua das Amélias", 123, "apto 101", "12345-678", "Fortaleza", "CE", "Brasil"));
@@ -30,4 +32,17 @@ public class EnderecoRepository {
         return listaEnderecos;
     }
 
+    public List<Endereco> listarEnderecosPorIdPessoa(Integer idPessoa) {
+        return listaEnderecos
+                .stream()
+                .filter(endereco -> endereco.getIdPessoa().equals(idPessoa))
+                .collect(Collectors.toList());
+    }
+
+    public Endereco criarEndereco(Endereco endereco) {
+        endereco.setIdEndereco(COUNTER.incrementAndGet());
+        endereco.setIdPessoa(pessoaService.findById(endereco.getIdPessoa()).getIdPessoa());
+        listaEnderecos.add(endereco);
+        return endereco;
+    }
 }

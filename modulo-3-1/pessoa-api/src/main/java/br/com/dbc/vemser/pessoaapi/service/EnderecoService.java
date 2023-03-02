@@ -18,4 +18,24 @@ public class EnderecoService {
     public List<Endereco> listarTodos() {
         return enderecoRepository.listarTodos();
     }
+
+    public List<Endereco> listarEnderecosPorIdPessoa(Integer idPessoa) throws Exception {
+        getEndereco(idPessoa);
+        return enderecoRepository.listarEnderecosPorIdPessoa(idPessoa);
+    }
+    public Endereco criarEndereco(Integer idPessoa, Endereco endereco) throws Exception {
+        getEndereco(idPessoa);
+        endereco.setIdPessoa(idPessoa);
+        return enderecoRepository.criarEndereco(endereco);
+    }
+
+    // metodo para validar se o endereco existe, se não existir, lança uma exceção
+    private Endereco getEndereco(Integer idEndereco) throws Exception {
+        Endereco enderecoRecuperado = enderecoRepository
+                .listarTodos().stream()
+                .filter(endereco -> endereco.getIdEndereco().equals(idEndereco))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Endereço não encontrado!"));
+        return enderecoRecuperado;
+    }
 }

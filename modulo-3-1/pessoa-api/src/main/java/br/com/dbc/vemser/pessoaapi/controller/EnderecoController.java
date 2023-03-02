@@ -2,9 +2,7 @@ package br.com.dbc.vemser.pessoaapi.controller;
 
 import br.com.dbc.vemser.pessoaapi.entity.Endereco;
 import br.com.dbc.vemser.pessoaapi.service.EnderecoService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,7 +17,18 @@ public class EnderecoController {
     }
 
     @GetMapping
-    public List<Endereco> listar() {
+    public List<Endereco> listarTodos() {
         return enderecoService.listarTodos();
+    }
+
+    @GetMapping("/{idPessoa}")
+    public List<Endereco> listarEnderecosPorPessoa(@PathVariable("idPessoa") Integer idPessoa) throws Exception {
+        return enderecoService.listarEnderecosPorIdPessoa(idPessoa);
+    }
+
+    @PostMapping("/{idPessoa}")
+    public Endereco create(@PathVariable("idPessoa") Integer idPessoa,
+                           @RequestBody Endereco endereco) throws Exception {
+        return enderecoService.criarEndereco(idPessoa, endereco);
     }
 }
