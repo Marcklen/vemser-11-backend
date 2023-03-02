@@ -43,8 +43,12 @@ public class PessoaService {
         pessoaRepository.delete(pessoaRecuperada);
     }
 
-    public List<Pessoa> listByName(String nome) {
-        return pessoaRepository.listByName(nome);
+    public List<Pessoa> listByName(String nome) throws RegraDeNegocioException {
+        List<Pessoa> pessoaList = pessoaRepository.listByName(nome);
+        if(pessoaList.isEmpty()) {
+            throw new RegraDeNegocioException("Nenhuma pessoa encontrada com o nome: " + nome.toUpperCase());
+        }
+        return pessoaList;
     }
 
     public Pessoa getPessoa(Integer id) throws Exception {

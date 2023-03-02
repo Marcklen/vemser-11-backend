@@ -41,7 +41,7 @@ public class PessoaController {
     }
 
     @GetMapping("/byname") // GET localhost:8080/pessoa/byname?nome=Rafa
-    public ResponseEntity<List<Pessoa>> listByName(@RequestParam("nome") String nome) {
+    public ResponseEntity<List<Pessoa>> listByName(@RequestParam("nome") String nome) throws Exception{
         return new ResponseEntity<>(pessoaService.listByName(nome), HttpStatus.OK);
     }
 
