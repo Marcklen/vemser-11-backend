@@ -45,11 +45,6 @@ public class PessoaController {
         return new ResponseEntity<>(pessoaService.listByName(nome), HttpStatus.OK);
     }
 
-    @GetMapping("/{idPessoa}") // GET localhost:8080/pessoa/1
-    public ResponseEntity<Pessoa> findById(@PathVariable("idPessoa") Integer id) {
-        return new ResponseEntity<>(pessoaService.findById(id), HttpStatus.OK);
-    }
-
     @PostMapping
     public ResponseEntity<Pessoa> create(@Valid @RequestBody Pessoa pessoa) throws Exception{
         return new ResponseEntity<>(pessoaService.create(pessoa), HttpStatus.CREATED);

@@ -47,10 +47,9 @@ public class EnderecoRepository {
                 .collect(Collectors.toList());
     }
 
-    public Endereco criarEndereco(Endereco endereco) {
+    public Endereco criarEndereco(Integer idPessoa, Endereco endereco) {
         endereco.setIdEndereco(COUNTER.incrementAndGet());
-        endereco.setIdPessoa(pessoaService.findById(endereco.getIdPessoa()).getIdPessoa());
-        listaEnderecos.add(endereco);
+        listaEnderecos.add(idPessoa, endereco);
         return endereco;
     }
 

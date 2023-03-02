@@ -1,6 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.entity.Contato;
+import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.ContatoRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +19,7 @@ public class ContatoService {
     }
 
     public Contato create(Integer idPessoa, Contato contato) throws Exception {
-        pessoaService.getPessoa(idPessoa);
-//        getContato(idPessoa); // só para validar se a pessoa existe, se não existir, lança uma exceção
-        contato.setIdPessoa(idPessoa);
+        contato.setIdPessoa(pessoaService.getPessoa(idPessoa).getIdPessoa());
         return contatoRepository.create(contato);
     }
 
@@ -29,11 +28,11 @@ public class ContatoService {
     }
 
     public Contato update(Integer id, Contato contatoAtualizar) throws Exception {
-           Contato contatoRecuperado = getContato(id);
+        Contato contatoRecuperado = getContato(id);
 //           contatoRecuperado.setIdPessoa(contatoAtualizar.getIdPessoa());
-           contatoRecuperado.setTipoContato(contatoAtualizar.getTipoContato());
-           contatoRecuperado.setNumero(contatoAtualizar.getNumero());
-           contatoRecuperado.setDescricao(contatoAtualizar.getDescricao());
+        contatoRecuperado.setTipoContato(contatoAtualizar.getTipoContato());
+        contatoRecuperado.setNumero(contatoAtualizar.getNumero());
+        contatoRecuperado.setDescricao(contatoAtualizar.getDescricao());
 
         return contatoRecuperado;
     }
@@ -52,7 +51,7 @@ public class ContatoService {
         Contato contatoRecuperado = contatoRepository.list().stream()
                 .filter(contato -> contato.getIdContato().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new Exception("Contato não encontrado!"));
+                .orElseThrow(() -> new RegraDeNegocioException("Contato não encontrado!"));
         return contatoRecuperado;
     }
 }

@@ -32,9 +32,8 @@ public class ContatoRepository {
         listaContatos.add(new Contato(COUNTER.incrementAndGet() /*10*/, 5, TipoContato.valueOf("COMERCIAL"), "85-98810-1925", "casa e whatsapp"));
     }
 
-    public Contato create(Contato contato) {
+    public Contato create(Contato contato) throws Exception {
         contato.setIdContato(COUNTER.incrementAndGet());
-        contato.setIdPessoa(pessoaService.findById(contato.getIdPessoa()).getIdPessoa());
         listaContatos.add(contato);
         return contato;
     }
