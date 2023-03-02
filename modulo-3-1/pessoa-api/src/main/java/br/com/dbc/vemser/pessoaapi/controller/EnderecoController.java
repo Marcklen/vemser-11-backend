@@ -36,4 +36,15 @@ public class EnderecoController {
                            @RequestBody Endereco endereco) throws Exception {
         return enderecoService.criarEndereco(idPessoa, endereco);
     }
+
+    @PutMapping("/{idEndereco}")
+    public Endereco atualizarEndereco(@PathVariable("idEndereco") Integer idEndereco,
+                                      @RequestBody Endereco enderecoAtualizar) throws Exception {
+        return enderecoService.atualizarEndereco(idEndereco, enderecoAtualizar);
+    }
+
+    @DeleteMapping("/{idEndereco}")
+    public void deletarEndereco(@PathVariable("idEndereco") Integer idEndereco) throws Exception {
+        enderecoService.deletarEndereco(idEndereco);
+    }
 }

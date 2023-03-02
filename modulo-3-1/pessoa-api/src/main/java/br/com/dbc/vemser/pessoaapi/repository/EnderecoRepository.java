@@ -52,4 +52,25 @@ public class EnderecoRepository {
         listaEnderecos.add(endereco);
         return endereco;
     }
+
+//    public Endereco atualizarEndereco(Endereco endereco) {
+//        Endereco enderecoRecuperado = listaEnderecos
+//                .stream()
+//                .filter(enderecoLista -> enderecoLista.getIdEndereco().equals(endereco.getIdEndereco()))
+//                .findFirst()
+//                .orElseThrow(() -> new RuntimeException("Endereço não encontrado!"));
+//        enderecoRecuperado.setTipo(TipoEndereco.valueOf(endereco.getTipo().toString()));
+//        enderecoRecuperado.setLogradouro(endereco.getLogradouro());
+//        enderecoRecuperado.setNumero(endereco.getNumero());
+//        enderecoRecuperado.setComplemento(endereco.getComplemento());
+//        enderecoRecuperado.setCep(endereco.getCep());
+//        enderecoRecuperado.setCidade(endereco.getCidade());
+//        enderecoRecuperado.setEstado(endereco.getEstado());
+//        enderecoRecuperado.setPais(endereco.getPais());
+//        return enderecoRecuperado;
+//    }
+
+    public void deletarEndereco(Endereco endereco) {
+        listaEnderecos.remove(endereco);
+    }
 }

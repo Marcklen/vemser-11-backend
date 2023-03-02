@@ -1,6 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.entity.Endereco;
+import br.com.dbc.vemser.pessoaapi.entity.TipoEndereco;
 import br.com.dbc.vemser.pessoaapi.repository.EnderecoRepository;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,25 @@ public class EnderecoService {
         getEndereco(idPessoa);
         endereco.setIdPessoa(idPessoa);
         return enderecoRepository.criarEndereco(endereco);
+    }
+
+    public Endereco atualizarEndereco(Integer idEndereco, Endereco enderecoAtualizar) throws Exception {
+        Endereco enderecoRecuperado = getEndereco(idEndereco);
+//        enderecoRecuperado.setIdPessoa(enderecoAtualizar.getIdPessoa()); // não pode atualizar o idPessoa essa linha é necessária ?
+        enderecoRecuperado.setTipo(enderecoAtualizar.getTipo());
+        enderecoRecuperado.setLogradouro(enderecoAtualizar.getLogradouro());
+        enderecoRecuperado.setNumero(enderecoAtualizar.getNumero());
+        enderecoRecuperado.setComplemento(enderecoAtualizar.getComplemento());
+        enderecoRecuperado.setCep(enderecoAtualizar.getCep());
+        enderecoRecuperado.setCidade(enderecoAtualizar.getCidade());
+        enderecoRecuperado.setEstado(enderecoAtualizar.getEstado());
+        enderecoRecuperado.setPais(enderecoAtualizar.getPais());
+        return enderecoRecuperado;
+    }
+
+    public void deletarEndereco(Integer idEndereco) throws Exception {
+        Endereco enderecoRecuperado = getEndereco(idEndereco);
+        enderecoRepository.deletarEndereco(enderecoRecuperado);
     }
 
     // metodo para validar se o endereco existe, se não existir, lança uma exceção
