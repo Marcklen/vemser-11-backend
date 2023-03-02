@@ -39,6 +39,13 @@ public class EnderecoRepository {
                 .collect(Collectors.toList());
     }
 
+    public List<Endereco> buscarEnderecoPorId(Integer idEndereco) {
+        return listaEnderecos
+                .stream()
+                .filter(endereco -> endereco.getIdEndereco().equals(idEndereco))
+                .collect(Collectors.toList());
+    }
+
     public Endereco criarEndereco(Endereco endereco) {
         endereco.setIdEndereco(COUNTER.incrementAndGet());
         endereco.setIdPessoa(pessoaService.findById(endereco.getIdPessoa()).getIdPessoa());

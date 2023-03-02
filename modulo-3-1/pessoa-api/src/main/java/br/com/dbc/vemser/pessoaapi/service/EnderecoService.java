@@ -23,6 +23,12 @@ public class EnderecoService {
         getEndereco(idPessoa);
         return enderecoRepository.listarEnderecosPorIdPessoa(idPessoa);
     }
+
+    public List<Endereco> buscarEnderecoPorId(Integer idEndereco) throws Exception {
+        getEndereco(idEndereco);
+        return enderecoRepository.buscarEnderecoPorId(idEndereco);
+    }
+
     public Endereco criarEndereco(Integer idPessoa, Endereco endereco) throws Exception {
         getEndereco(idPessoa);
         endereco.setIdPessoa(idPessoa);

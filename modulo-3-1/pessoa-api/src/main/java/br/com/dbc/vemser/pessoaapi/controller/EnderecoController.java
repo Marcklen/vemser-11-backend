@@ -21,9 +21,14 @@ public class EnderecoController {
         return enderecoService.listarTodos();
     }
 
-    @GetMapping("/{idPessoa}")
+    @GetMapping("/{idPessoa}/pessoa")
     public List<Endereco> listarEnderecosPorPessoa(@PathVariable("idPessoa") Integer idPessoa) throws Exception {
         return enderecoService.listarEnderecosPorIdPessoa(idPessoa);
+    }
+
+    @GetMapping("/{idEndereco}")
+    public List<Endereco> buscarEnderecoPorId(@PathVariable("idEndereco") Integer idEndereco) throws Exception {
+        return enderecoService.buscarEnderecoPorId(idEndereco);
     }
 
     @PostMapping("/{idPessoa}")
