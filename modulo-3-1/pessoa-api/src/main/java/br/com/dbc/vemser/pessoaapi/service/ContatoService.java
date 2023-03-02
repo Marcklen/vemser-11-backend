@@ -10,13 +10,16 @@ import java.util.List;
 public class ContatoService {
 
     private final ContatoRepository contatoRepository;
+    private final PessoaService pessoaService;
 
-    public ContatoService(ContatoRepository contatoRepository) {
+    public ContatoService(ContatoRepository contatoRepository, PessoaService pessoaService) {
         this.contatoRepository = contatoRepository;
+        this.pessoaService = pessoaService;
     }
 
     public Contato create(Integer idPessoa, Contato contato) throws Exception {
-        getContato(idPessoa); // só para validar se a pessoa existe, se não existir, lança uma exceção
+        pessoaService.getPessoa(idPessoa);
+//        getContato(idPessoa); // só para validar se a pessoa existe, se não existir, lança uma exceção
         contato.setIdPessoa(idPessoa);
         return contatoRepository.create(contato);
     }

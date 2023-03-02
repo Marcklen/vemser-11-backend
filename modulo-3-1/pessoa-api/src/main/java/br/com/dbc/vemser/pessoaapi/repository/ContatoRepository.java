@@ -13,7 +13,8 @@ import java.util.stream.Collectors;
 @Repository
 public class ContatoRepository {
 
-    private List<Contato> listaContatos = new ArrayList<>();
+    // static para simular um banco de dados
+    private static List<Contato> listaContatos = new ArrayList<>();
     private AtomicInteger COUNTER = new AtomicInteger();
     private final PessoaService pessoaService;
 
