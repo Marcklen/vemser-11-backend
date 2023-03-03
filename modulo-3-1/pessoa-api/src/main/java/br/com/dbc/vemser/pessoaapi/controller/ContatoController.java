@@ -2,6 +2,7 @@ package br.com.dbc.vemser.pessoaapi.controller;
 
 import br.com.dbc.vemser.pessoaapi.entity.Contato;
 import br.com.dbc.vemser.pessoaapi.service.ContatoService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/contato") // http://localhost:8080/contato
 @Validated
+@Slf4j
 public class ContatoController {
 
     private final ContatoService contatoService;
@@ -34,19 +36,27 @@ public class ContatoController {
     @PostMapping("/{idPessoa}")
     public ResponseEntity<Contato> create(@PathVariable("idPessoa") Integer idPessoa,
                           @Valid @RequestBody Contato contato) throws Exception {
-        return new ResponseEntity<>(contatoService.create(idPessoa, contato) , HttpStatus.CREATED);
+        log.info("Criando contato: " + contato);
+        Contato c = contatoService.create(idPessoa, contato);
+        log.info("Contato criado: " + c);
+        return new ResponseEntity<>(c, HttpStatus.CREATED);
     }
 
     @PutMapping("/{idContato}")
     public ResponseEntity<Contato> update(@PathVariable("idContato") Integer id,
                           @Valid @RequestBody Contato contatoAtualizar) throws Exception {
-        return new ResponseEntity<>(contatoService.update(id, contatoAtualizar), HttpStatus.OK);
+        log.info("Atualizando contato: " + contatoAtualizar);
+        Contato update = contatoService.update(id, contatoAtualizar);
+        log.info("Contato atualizado: " + update);
+        return new ResponseEntity<>(update, HttpStatus.OK);
     }
 
     @DeleteMapping("/{idContato}")
     public ResponseEntity<Void> delete(@PathVariable("idContato") Integer id) throws Exception {
+        log.info("Deletando contato: " + id);
         contatoService.delete(id);
-        return ResponseEntity.ok().build();
-//        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        log.info("Contato deletado com sucesso");
+//        return ResponseEntity.ok().build();
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

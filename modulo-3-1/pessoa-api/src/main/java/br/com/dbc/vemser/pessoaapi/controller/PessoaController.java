@@ -3,6 +3,7 @@ package br.com.dbc.vemser.pessoaapi.controller;
 import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.service.PessoaService;
 import br.com.dbc.vemser.pessoaapi.service.PropertieReader;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -14,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/pessoa") // http://localhost:8080/pessoa
 @Validated
+@Slf4j
 public class PessoaController {
 
     private final PessoaService pessoaService;
@@ -47,18 +49,26 @@ public class PessoaController {
 
     @PostMapping
     public ResponseEntity<Pessoa> create(@Valid @RequestBody Pessoa pessoa) throws Exception{
-        return new ResponseEntity<>(pessoaService.create(pessoa), HttpStatus.CREATED);
+        log.info("Criando pessoa: " + pessoa);
+        Pessoa p = pessoaService.create(pessoa);
+        log.info("Pessoa criada: " + p);
+        return new ResponseEntity<>(p, HttpStatus.CREATED);
     }
 
     @PutMapping("/{idPessoa}")
     public ResponseEntity<Pessoa> update(@PathVariable("idPessoa") Integer id,
                          @Valid @RequestBody Pessoa pessoaAtualizar) throws Exception {
-        return new ResponseEntity<>(pessoaService.update(id, pessoaAtualizar), HttpStatus.OK);
+        log.info("Atualizando pessoa: " + pessoaAtualizar);
+        Pessoa update = pessoaService.update(id, pessoaAtualizar);
+        log.info("Pessoa atualizada: " + update);
+        return new ResponseEntity<>(update, HttpStatus.OK);
     }
 
     @DeleteMapping("/{idPessoa}")
     public ResponseEntity<Void> delete(@PathVariable("idPessoa") Integer id) throws Exception {
+        log.info("Deletando pessoa com id : " + id);
         pessoaService.delete(id);
+        log.info("Pessoa deletada com sucesso");
         return ResponseEntity.ok().build();
     }
 }

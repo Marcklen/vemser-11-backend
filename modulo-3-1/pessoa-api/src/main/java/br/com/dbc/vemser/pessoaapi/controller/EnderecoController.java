@@ -2,6 +2,7 @@ package br.com.dbc.vemser.pessoaapi.controller;
 
 import br.com.dbc.vemser.pessoaapi.entity.Endereco;
 import br.com.dbc.vemser.pessoaapi.service.EnderecoService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/endereco") // http://localhost:8080/endereco
 @Validated
+@Slf4j
 public class EnderecoController {
 
     private final EnderecoService enderecoService;
@@ -41,18 +43,26 @@ public class EnderecoController {
     @PostMapping("/{idPessoa}")
     public ResponseEntity<Endereco> create(@PathVariable("idPessoa") Integer idPessoa,
                                            @Valid @RequestBody Endereco endereco) throws Exception {
-        return new ResponseEntity<>(enderecoService.criarEndereco(idPessoa, endereco), HttpStatus.CREATED);
+        log.info("Criando endereco: " + endereco);
+        Endereco end = enderecoService.criarEndereco(idPessoa, endereco);
+        log.info("Endereco criado: " + end);
+        return new ResponseEntity<>(end, HttpStatus.CREATED);
     }
 
     @PutMapping("/{idEndereco}")
     public ResponseEntity<Endereco> atualizarEndereco(@PathVariable("idEndereco") Integer idEndereco,
                                                       @Valid @RequestBody Endereco enderecoAtualizar) throws Exception {
-        return new ResponseEntity<>(enderecoService.atualizarEndereco(idEndereco, enderecoAtualizar), HttpStatus.OK);
+        log.info("Atualizando endereco: " + enderecoAtualizar);
+        Endereco end = enderecoService.atualizarEndereco(idEndereco, enderecoAtualizar);
+        log.info("Endereco atualizado: " + end);
+        return new ResponseEntity<>(end, HttpStatus.OK);
     }
 
     @DeleteMapping("/{idEndereco}")
     public ResponseEntity<Void> deletarEndereco(@PathVariable("idEndereco") Integer idEndereco) throws Exception {
+        log.info("Deletando endereco: " + idEndereco);
         enderecoService.deletarEndereco(idEndereco);
+        log.info("Endereco deletado com sucesso");
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
