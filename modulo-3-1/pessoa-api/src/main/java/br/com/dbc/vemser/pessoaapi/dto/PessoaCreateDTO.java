@@ -1,24 +1,23 @@
 package br.com.dbc.vemser.pessoaapi.dto;
 
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Data
 public class PessoaCreateDTO {
-
-    @NotBlank(message = "O Nome não pode ser vazio nem nulo")
+    @NotEmpty(message = "nome não pode ser vazio")
+    @NotBlank(message = "nome não pode ser em branco")
     private String nome;
 
-    @NotNull(message = "A Data de Nascimento não pode ser vazia nem nula")
-    @PastOrPresent(message = "A Data de Nascimento não pode ser futura")
+    @NotNull
     private LocalDate dataNascimento;
 
-    @NotBlank(message = "O CPF não pode ser vazio nem nulo")
-    @Length(min = 11, max = 11, message = "O CPF deve conter exatamente 11 caracteres")
+    @Size(max = 11, min = 11, message = "cpf deve conter 11 caracteres")
+    @NotNull(message = "cpf não pode ser nulo")
     private String cpf;
 }

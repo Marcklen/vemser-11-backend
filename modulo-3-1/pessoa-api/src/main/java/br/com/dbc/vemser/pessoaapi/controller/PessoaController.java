@@ -36,7 +36,7 @@ public class PessoaController {
 
     @GetMapping("/ambiente")
     public String ambiente() {
-        return "Estou no ambiente: '"+propertieReader.getPropertie() + "'";
+        return "Estou no ambiente: '" + propertieReader.getPropertie() + "'";
     }
 
     @GetMapping // GET localhost:8080/pessoa
@@ -45,23 +45,25 @@ public class PessoaController {
     }
 
     @GetMapping("/byname") // GET localhost:8080/pessoa/byname?nome=Rafa
-    public ResponseEntity<List<Pessoa>> listByName(@RequestParam("nome") String nome) throws Exception{
+    public ResponseEntity<List<Pessoa>> listByName(@RequestParam("nome") String nome) throws Exception {
         return new ResponseEntity<>(pessoaService.listByName(nome), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<PessoaDTO> create(@Valid @RequestBody PessoaCreateDTO pessoa) throws Exception{
-        log.info("Criando pessoa: " + pessoa);
+    @PostMapping // POST localhost:8080/pessoa
+    public ResponseEntity<PessoaDTO> create(@Valid @RequestBody PessoaCreateDTO pessoa) throws Exception {
+
+        log.info("Pessoa criando.." + pessoa);
         PessoaDTO p = pessoaService.create(pessoa);
-        log.info("Pessoa criada: " + p);
-        return new ResponseEntity<>(p, HttpStatus.CREATED);
+        log.info("Pessoa criada!" + p);
+
+        return new ResponseEntity<>(p, HttpStatus.OK);
     }
 
     @PutMapping("/{idPessoa}")
-    public ResponseEntity<PessoaDTO> update(@PathVariable("idPessoa") Integer id,
-                         @Valid @RequestBody PessoaCreateDTO pessoaAtualizar) throws Exception {
+    public ResponseEntity<Pessoa> update(@PathVariable("idPessoa") Integer id,
+                                         @Valid @RequestBody Pessoa pessoaAtualizar) throws Exception {
         log.info("Atualizando pessoa: " + pessoaAtualizar);
-        PessoaDTO update = pessoaService.update(id, pessoaAtualizar);
+        Pessoa update = pessoaService.update(id, pessoaAtualizar);
         log.info("Pessoa atualizada: " + update);
         return new ResponseEntity<>(update, HttpStatus.OK);
     }
