@@ -23,10 +23,9 @@ public class PessoaService {
     }
 
     public PessoaDTO create(PessoaCreateDTO pessoa) throws Exception {
+
         Pessoa pessoaEntity = objectMapper.convertValue(pessoa, Pessoa.class);
-
         Pessoa pessoaCriada = pessoaRepository.create(pessoaEntity);
-
         PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaCriada, PessoaDTO.class);
 
         return pessoaDTO;
@@ -39,15 +38,15 @@ public class PessoaService {
                 .collect(Collectors.toList());
     }
 
-    public Pessoa update(Integer id,
-                         Pessoa pessoaAtualizar) throws Exception {
+    public PessoaDTO update(Integer id,
+                            PessoaCreateDTO pessoaAtualizar) throws Exception {
         Pessoa pessoaRecuperada = getPessoa(id);
 
         pessoaRecuperada.setCpf(pessoaAtualizar.getCpf());
         pessoaRecuperada.setNome(pessoaAtualizar.getNome());
         pessoaRecuperada.setDataNascimento(pessoaAtualizar.getDataNascimento());
 
-        return pessoaRecuperada;
+        return objectMapper.convertValue(pessoaRecuperada, PessoaDTO.class);
     }
 
     public void delete(Integer id) throws Exception {
@@ -70,4 +69,10 @@ public class PessoaService {
                 .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada!"));
         return pessoaRecuperada;
     }
+
+//    public PessoaDTO getPessoaDTO (Integer id) throws Exception {
+//        PessoaDTO pessoaDTO = objectMapper.convertValue(getPessoa(id), PessoaDTO.class);
+//        return pessoaDTO;
+//    }
+
 }

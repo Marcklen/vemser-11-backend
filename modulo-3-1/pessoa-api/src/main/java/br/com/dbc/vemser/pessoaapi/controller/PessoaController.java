@@ -60,10 +60,10 @@ public class PessoaController {
     }
 
     @PutMapping("/{idPessoa}")
-    public ResponseEntity<Pessoa> update(@PathVariable("idPessoa") Integer id,
-                                         @Valid @RequestBody Pessoa pessoaAtualizar) throws Exception {
+    public ResponseEntity<PessoaDTO> update(@PathVariable("idPessoa") Integer id,
+                                         @Valid @RequestBody PessoaCreateDTO pessoaAtualizar) throws Exception {
         log.info("Atualizando pessoa: " + pessoaAtualizar);
-        Pessoa update = pessoaService.update(id, pessoaAtualizar);
+        PessoaDTO update = pessoaService.update(id, pessoaAtualizar);
         log.info("Pessoa atualizada: " + update);
         return new ResponseEntity<>(update, HttpStatus.OK);
     }
