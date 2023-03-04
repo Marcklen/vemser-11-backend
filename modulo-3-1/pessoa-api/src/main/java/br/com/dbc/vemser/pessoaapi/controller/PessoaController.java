@@ -1,5 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
+import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
+import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
 import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.service.PessoaService;
 import br.com.dbc.vemser.pessoaapi.service.PropertieReader;
@@ -38,7 +40,7 @@ public class PessoaController {
     }
 
     @GetMapping // GET localhost:8080/pessoa
-    public ResponseEntity<List<Pessoa>> list() {
+    public ResponseEntity<List<PessoaDTO>> list() {
         return new ResponseEntity<>(pessoaService.list(), HttpStatus.OK);
     }
 
@@ -48,18 +50,18 @@ public class PessoaController {
     }
 
     @PostMapping
-    public ResponseEntity<Pessoa> create(@Valid @RequestBody Pessoa pessoa) throws Exception{
+    public ResponseEntity<PessoaDTO> create(@Valid @RequestBody PessoaCreateDTO pessoa) throws Exception{
         log.info("Criando pessoa: " + pessoa);
-        Pessoa p = pessoaService.create(pessoa);
+        PessoaDTO p = pessoaService.create(pessoa);
         log.info("Pessoa criada: " + p);
         return new ResponseEntity<>(p, HttpStatus.CREATED);
     }
 
     @PutMapping("/{idPessoa}")
-    public ResponseEntity<Pessoa> update(@PathVariable("idPessoa") Integer id,
-                         @Valid @RequestBody Pessoa pessoaAtualizar) throws Exception {
+    public ResponseEntity<PessoaDTO> update(@PathVariable("idPessoa") Integer id,
+                         @Valid @RequestBody PessoaCreateDTO pessoaAtualizar) throws Exception {
         log.info("Atualizando pessoa: " + pessoaAtualizar);
-        Pessoa update = pessoaService.update(id, pessoaAtualizar);
+        PessoaDTO update = pessoaService.update(id, pessoaAtualizar);
         log.info("Pessoa atualizada: " + update);
         return new ResponseEntity<>(update, HttpStatus.OK);
     }
