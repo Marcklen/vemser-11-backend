@@ -1,40 +1,55 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
+import br.com.dbc.vemser.pessoaapi.dto.ContatoCreateDTO;
+import br.com.dbc.vemser.pessoaapi.dto.ContatoDTO;
 import br.com.dbc.vemser.pessoaapi.entity.Contato;
 import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.ContatoRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ContatoService {
 
     private final ContatoRepository contatoRepository;
     private final PessoaService pessoaService;
+    private final ObjectMapper objectMapper;
 
-    public ContatoService(ContatoRepository contatoRepository, PessoaService pessoaService) {
+    public ContatoService(ContatoRepository contatoRepository, PessoaService pessoaService, ObjectMapper objectMapper) {
         this.contatoRepository = contatoRepository;
         this.pessoaService = pessoaService;
+        this.objectMapper = objectMapper;
     }
 
-    public Contato create(Integer idPessoa, Contato contato) throws Exception {
+    public ContatoDTO create(Integer idPessoa, ContatoCreateDTO contato) throws Exception {
+
         contato.setIdPessoa(pessoaService.getPessoa(idPessoa).getIdPessoa());
-        return contatoRepository.create(contato);
+
+        Contato contatoEntity = objectMapper.convertValue(contato, Contato.class);
+        Contato contatoCriado = contatoRepository.create(contatoEntity);
+        ContatoDTO contatoDTO = objectMapper.convertValue(contatoCriado, ContatoDTO.class);
+
+        return contatoDTO;
     }
 
-    public List<Contato> lista() {
-        return contatoRepository.list();
+    public List<ContatoDTO> lista() {
+        return contatoRepository.list()
+                .stream()
+                .map(contato -> objectMapper.convertValue(contato, ContatoDTO.class))
+                .collect(Collectors.toList());
     }
 
-    public Contato update(Integer id, Contato contatoAtualizar) throws Exception {
+    public ContatoDTO update(Integer id, ContatoCreateDTO contatoAtualizar) throws Exception {
         Contato contatoRecuperado = getContato(id);
-//           contatoRecuperado.setIdPessoa(contatoAtualizar.getIdPessoa());
+
         contatoRecuperado.setTipoContato(contatoAtualizar.getTipoContato());
         contatoRecuperado.setNumero(contatoAtualizar.getNumero());
         contatoRecuperado.setDescricao(contatoAtualizar.getDescricao());
 
-        return contatoRecuperado;
+        return objectMapper.convertValue(contatoRecuperado, ContatoDTO.class);
     }
 
     public void delete(Integer id) throws Exception {

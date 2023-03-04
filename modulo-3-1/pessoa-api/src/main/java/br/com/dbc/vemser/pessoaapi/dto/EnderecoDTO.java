@@ -1,4 +1,8 @@
 package br.com.dbc.vemser.pessoaapi.dto;
 
-public class EnderecoDTO {
+import lombok.Data;
+
+@Data
+public class EnderecoDTO extends EnderecoCreateDTO {
+    private Integer idEndereco;
 }

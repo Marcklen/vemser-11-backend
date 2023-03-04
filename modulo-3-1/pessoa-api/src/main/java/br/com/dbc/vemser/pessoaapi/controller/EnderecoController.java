@@ -1,5 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
+import br.com.dbc.vemser.pessoaapi.dto.EnderecoCreateDTO;
+import br.com.dbc.vemser.pessoaapi.dto.EnderecoDTO;
 import br.com.dbc.vemser.pessoaapi.entity.Endereco;
 import br.com.dbc.vemser.pessoaapi.service.EnderecoService;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +26,7 @@ public class EnderecoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Endereco>> listarTodos() {
+    public ResponseEntity<List<EnderecoDTO>> listarTodos() {
         return new ResponseEntity<>(enderecoService.listarTodos(), HttpStatus.OK);
     }
 
@@ -41,19 +43,19 @@ public class EnderecoController {
     }
 
     @PostMapping("/{idPessoa}")
-    public ResponseEntity<Endereco> create(@PathVariable("idPessoa") Integer idPessoa,
-                                           @Valid @RequestBody Endereco endereco) throws Exception {
+    public ResponseEntity<EnderecoDTO> create(@PathVariable("idPessoa") Integer idPessoa,
+                                           @Valid @RequestBody EnderecoCreateDTO endereco) throws Exception {
         log.info("Criando endereco: " + endereco);
-        Endereco end = enderecoService.criarEndereco(idPessoa, endereco);
+        EnderecoDTO end = enderecoService.criarEndereco(idPessoa, endereco);
         log.info("Endereco criado: " + end);
         return new ResponseEntity<>(end, HttpStatus.CREATED);
     }
 
     @PutMapping("/{idEndereco}")
-    public ResponseEntity<Endereco> atualizarEndereco(@PathVariable("idEndereco") Integer idEndereco,
-                                                      @Valid @RequestBody Endereco enderecoAtualizar) throws Exception {
+    public ResponseEntity<EnderecoDTO> atualizarEndereco(@PathVariable("idEndereco") Integer idEndereco,
+                                                      @Valid @RequestBody EnderecoCreateDTO enderecoAtualizar) throws Exception {
         log.info("Atualizando endereco: " + enderecoAtualizar);
-        Endereco end = enderecoService.atualizarEndereco(idEndereco, enderecoAtualizar);
+        EnderecoDTO end = enderecoService.atualizarEndereco(idEndereco, enderecoAtualizar);
         log.info("Endereco atualizado: " + end);
         return new ResponseEntity<>(end, HttpStatus.OK);
     }

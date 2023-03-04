@@ -1,5 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
+import br.com.dbc.vemser.pessoaapi.dto.ContatoCreateDTO;
+import br.com.dbc.vemser.pessoaapi.dto.ContatoDTO;
 import br.com.dbc.vemser.pessoaapi.entity.Contato;
 import br.com.dbc.vemser.pessoaapi.service.ContatoService;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +26,7 @@ public class ContatoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Contato>> list() {
+    public ResponseEntity<List<ContatoDTO>> list() {
         return new ResponseEntity<>(contatoService.lista(), HttpStatus.OK);
     }
 
@@ -34,19 +36,21 @@ public class ContatoController {
     }
 
     @PostMapping("/{idPessoa}")
-    public ResponseEntity<Contato> create(@PathVariable("idPessoa") Integer idPessoa,
-                          @Valid @RequestBody Contato contato) throws Exception {
+    public ResponseEntity<ContatoDTO> create(@PathVariable("idPessoa") Integer idPessoa,
+                          @Valid @RequestBody ContatoCreateDTO contato) throws Exception {
+
         log.info("Criando contato: " + contato);
-        Contato c = contatoService.create(idPessoa, contato);
+        ContatoDTO c = contatoService.create(idPessoa, contato);
         log.info("Contato criado: " + c);
+
         return new ResponseEntity<>(c, HttpStatus.CREATED);
     }
 
     @PutMapping("/{idContato}")
-    public ResponseEntity<Contato> update(@PathVariable("idContato") Integer id,
-                          @Valid @RequestBody Contato contatoAtualizar) throws Exception {
+    public ResponseEntity<ContatoDTO> update(@PathVariable("idContato") Integer id,
+                          @Valid @RequestBody ContatoCreateDTO contatoAtualizar) throws Exception {
         log.info("Atualizando contato: " + contatoAtualizar);
-        Contato update = contatoService.update(id, contatoAtualizar);
+        ContatoDTO update = contatoService.update(id, contatoAtualizar);
         log.info("Contato atualizado: " + update);
         return new ResponseEntity<>(update, HttpStatus.OK);
     }
