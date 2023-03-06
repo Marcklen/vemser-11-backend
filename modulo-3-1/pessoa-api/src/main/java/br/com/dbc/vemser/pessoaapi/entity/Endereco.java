@@ -13,6 +13,7 @@ public class Endereco {
     private TipoEndereco tipo;
     private String logradouro;
     private Integer numero;
+    private String complemento;
     private String cep;
     private String cidade;
     private String estado;

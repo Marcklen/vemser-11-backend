@@ -3,8 +3,10 @@ package br.com.dbc.vemser.pessoaapi.controller;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
 import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
+import br.com.dbc.vemser.pessoaapi.service.EmailService;
 import br.com.dbc.vemser.pessoaapi.service.PessoaService;
 import br.com.dbc.vemser.pessoaapi.service.PropertieReader;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +20,18 @@ import java.util.List;
 @RequestMapping("/pessoa") // http://localhost:8080/pessoa
 @Validated
 @Slf4j
+@RequiredArgsConstructor
 public class PessoaController {
 
     private final PessoaService pessoaService;
     private final PropertieReader propertieReader;
+    private final EmailService emailService;
 
-    public PessoaController(PessoaService pessoaService, PropertieReader propertieReader) {
-        this.pessoaService = pessoaService;
-        this.propertieReader = propertieReader;
-    }
+//    public PessoaController(PessoaService pessoaService, PropertieReader propertieReader, EmailService emailService) {
+//        this.pessoaService = pessoaService;
+//        this.propertieReader = propertieReader;
+//        this.emailService = emailService;
+//    }
 
     // teste para saber se o endpoint está funcionando
     @GetMapping("/hello")
@@ -34,6 +39,11 @@ public class PessoaController {
         return "Hello World";
     }
 
+    @GetMapping("/email")
+    public void enviarEmail() {
+        emailService.sendSimpleMessage();
+        log.info("Email enviado com sucesso");
+    }
     @GetMapping("/ambiente")
     public String ambiente() {
         return "Estou no ambiente: '" + propertieReader.getPropertie() + "'";
