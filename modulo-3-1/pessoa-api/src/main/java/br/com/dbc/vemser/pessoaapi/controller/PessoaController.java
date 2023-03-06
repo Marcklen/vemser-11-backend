@@ -39,11 +39,11 @@ public class PessoaController {
         return "Hello World";
     }
 
-    @GetMapping("/email")
-    public void enviarEmail() {
-        emailService.sendSimpleMessage();
-        log.info("Email enviado com sucesso");
-    }
+//    @GetMapping("/email")
+//    public void enviarEmail() {
+//        emailService.sendSimpleMessage();
+//        log.info("Email enviado com sucesso");
+//    }
     @GetMapping("/ambiente")
     public String ambiente() {
         return "Estou no ambiente: '" + propertieReader.getPropertie() + "'";
@@ -64,7 +64,7 @@ public class PessoaController {
 
         log.info("Pessoa criando.." + pessoa);
         PessoaDTO p = pessoaService.create(pessoa);
-        log.info("Pessoa criada!" + p);
+        log.info("Pessoa criada!" + p + "\nEmail enviado com sucesso para " + p.getEmail() + "!");
 
         return new ResponseEntity<>(p, HttpStatus.OK);
     }

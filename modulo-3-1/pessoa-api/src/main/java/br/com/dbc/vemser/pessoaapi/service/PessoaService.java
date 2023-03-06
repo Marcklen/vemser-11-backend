@@ -6,27 +6,28 @@ import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class PessoaService {
 
     private final PessoaRepository pessoaRepository;
     private final ObjectMapper objectMapper;
+    private final EmailService emailService;
 
-    public PessoaService(PessoaRepository pessoaRepository, ObjectMapper objectMapper) {
-        this.pessoaRepository = pessoaRepository;
-        this.objectMapper = objectMapper;
-    }
 
     public PessoaDTO create(PessoaCreateDTO pessoa) throws Exception {
 
         Pessoa pessoaEntity = objectMapper.convertValue(pessoa, Pessoa.class);
         Pessoa pessoaCriada = pessoaRepository.create(pessoaEntity);
         PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaCriada, PessoaDTO.class);
+
+        emailService.enviarEmailParaPessoaCadastrada(pessoaDTO);
 
         return pessoaDTO;
     }
@@ -45,6 +46,7 @@ public class PessoaService {
         pessoaRecuperada.setCpf(pessoaAtualizar.getCpf());
         pessoaRecuperada.setNome(pessoaAtualizar.getNome());
         pessoaRecuperada.setDataNascimento(pessoaAtualizar.getDataNascimento());
+        pessoaRecuperada.setEmail(pessoaAtualizar.getEmail());
 
         return objectMapper.convertValue(pessoaRecuperada, PessoaDTO.class);
     }
@@ -56,7 +58,7 @@ public class PessoaService {
 
     public List<Pessoa> listByName(String nome) throws RegraDeNegocioException {
         List<Pessoa> pessoaList = pessoaRepository.listByName(nome);
-        if(pessoaList.isEmpty()) {
+        if (pessoaList.isEmpty()) {
             throw new RegraDeNegocioException("Nenhuma pessoa encontrada com o nome: " + nome.toUpperCase());
         }
         return pessoaList;
@@ -69,10 +71,4 @@ public class PessoaService {
                 .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada!"));
         return pessoaRecuperada;
     }
-
-//    public PessoaDTO getPessoaDTO (Integer id) throws Exception {
-//        PessoaDTO pessoaDTO = objectMapper.convertValue(getPessoa(id), PessoaDTO.class);
-//        return pessoaDTO;
-//    }
-
 }

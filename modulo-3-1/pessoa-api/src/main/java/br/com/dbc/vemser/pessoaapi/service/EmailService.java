@@ -1,5 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
+import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
 import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import freemarker.template.Configuration;
@@ -42,5 +43,76 @@ public class EmailService {
         message.setSubject("E-mail Simples");
         message.setText("Teste \nMinha mensagem deu certo!!!!\n\nAtt,\nSistema.");
         emailSender.send(message);
+    }
+
+    public void enviarEmailParaPessoaCadastrada(PessoaDTO pessoa) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(from);
+        message.setTo(TO);
+        message.setSubject("Cadastro de Pessoa");
+        message.setText("Olá, " + pessoa.getNome() + " ,"
+                + "\nEstamos felizes em ter você em nosso sistema :)"
+                + "\nSeu cadastro foi realizado com sucesso, seu identificador é: " + pessoa.getIdPessoa()
+                + "\n\nQualquer duvida é só contatar o nosso suporte pelo email -> " + from
+                + "\n\nAtt,\nSistema.");
+        emailSender.send(message);
+    }
+
+    // Método para enviar e-mail com anexo
+    public void sendWithAttachment() throws MessagingException, FileNotFoundException {
+        MimeMessage message = emailSender.createMimeMessage();
+
+        MimeMessageHelper helper = new MimeMessageHelper(message,
+                true);
+
+        helper.setFrom(from);
+        helper.setTo(TO);
+        helper.setSubject("E-mail com Anexo");
+        helper.setText("Teste\n minha mensagem \n\nAtt,\nSistema.");
+
+        File file1 = ResourceUtils.getFile("classpath:imagem.jpg");
+        //File file1 = new File("imagem.jpg");
+        FileSystemResource file
+                = new FileSystemResource(file1);
+        helper.addAttachment(file1.getName(), file);
+
+        emailSender.send(message);
+    }
+
+    public void sendEmail(Pessoa pessoa) throws RegraDeNegocioException {
+        MimeMessage mimeMessage = emailSender.createMimeMessage();
+        try {
+
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+
+            mimeMessageHelper.setFrom(from);
+            mimeMessageHelper.setTo(TO);
+            mimeMessageHelper.setSubject("E-mail Template");
+            mimeMessageHelper.setText(getPessoaTemplate(pessoa), true);
+
+            emailSender.send(mimeMessageHelper.getMimeMessage());
+        } catch (MessagingException | IOException | TemplateException e) {
+            e.printStackTrace();
+            throw new RegraDeNegocioException("ERRO ao enviar e-mail.");
+        }
+    }
+
+    public String getContentFromTemplate() throws IOException, TemplateException {
+        Map<String, Object> dados = new HashMap<>();
+        dados.put("nome", "Pessoal do sistema");
+
+        Template template = fmConfiguration.getTemplate("email-template.ftl");
+        String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, dados);
+        return html;
+    }
+
+    public String getPessoaTemplate(Pessoa pessoa) throws IOException, TemplateException {
+        Map<String, Object> dados = new HashMap<>();
+        dados.put("nome", "Pessoal do sistema");
+        dados.put("pessoa", pessoa);
+
+        Template template = fmConfiguration.getTemplate("email-template-pessoa.ftl");
+        String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, dados);
+        return html;
     }
 }
