@@ -23,6 +23,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
 @Component
 @RequiredArgsConstructor
 public class EmailService {
@@ -36,59 +37,17 @@ public class EmailService {
 
     private final JavaMailSender emailSender;
 
-    public void sendSimpleMessage() {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(from);
-        message.setTo(TO);
-        message.setSubject("E-mail Simples");
-        message.setText("Teste \nMinha mensagem deu certo!!!!\n\nAtt,\nSistema.");
-        emailSender.send(message);
-    }
-
-    public void enviarEmailParaPessoaCadastrada(PessoaDTO pessoa) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(from);
-        message.setTo(TO);
-        message.setSubject("Cadastro de Pessoa");
-        message.setText("Olá, " + pessoa.getNome() + " ,"
-                + "\nEstamos felizes em ter você em nosso sistema :)"
-                + "\nSeu cadastro foi realizado com sucesso, seu identificador é: " + pessoa.getIdPessoa()
-                + "\n\nQualquer duvida é só contatar o nosso suporte pelo email -> " + from
-                + "\n\nAtt,\nSistema.");
-        emailSender.send(message);
-    }
-
-    // Método para enviar e-mail com anexo
-    public void sendWithAttachment() throws MessagingException, FileNotFoundException {
-        MimeMessage message = emailSender.createMimeMessage();
-
-        MimeMessageHelper helper = new MimeMessageHelper(message,
-                true);
-
-        helper.setFrom(from);
-        helper.setTo(TO);
-        helper.setSubject("E-mail com Anexo");
-        helper.setText("Teste\n minha mensagem \n\nAtt,\nSistema.");
-
-        File file1 = ResourceUtils.getFile("classpath:imagem.jpg");
-        //File file1 = new File("imagem.jpg");
-        FileSystemResource file
-                = new FileSystemResource(file1);
-        helper.addAttachment(file1.getName(), file);
-
-        emailSender.send(message);
-    }
-
-    public void sendEmail(Pessoa pessoa) throws RegraDeNegocioException {
+    public void enviarEmailParaPessoaCadastrada(PessoaDTO pessoa) throws RegraDeNegocioException {
         MimeMessage mimeMessage = emailSender.createMimeMessage();
+        Integer op = 1;
         try {
-
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
 
             mimeMessageHelper.setFrom(from);
             mimeMessageHelper.setTo(TO);
             mimeMessageHelper.setSubject("E-mail Template");
-            mimeMessageHelper.setText(getPessoaTemplate(pessoa), true);
+
+            mimeMessageHelper.setText(getPessoaTemplate(pessoa, op), true);
 
             emailSender.send(mimeMessageHelper.getMimeMessage());
         } catch (MessagingException | IOException | TemplateException e) {
@@ -97,22 +56,66 @@ public class EmailService {
         }
     }
 
-    public String getContentFromTemplate() throws IOException, TemplateException {
-        Map<String, Object> dados = new HashMap<>();
-        dados.put("nome", "Pessoal do sistema");
+    // metodo para enviar email com templates = em teste . . .
+    public void enviarEmailParaPessoaAtualizada(PessoaDTO pessoa) throws RegraDeNegocioException {
+        MimeMessage mimeMessage = emailSender.createMimeMessage();
+        Integer op = 2;
+        try {
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
 
-        Template template = fmConfiguration.getTemplate("email-template.ftl");
-        String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, dados);
-        return html;
+            mimeMessageHelper.setFrom(from);
+            mimeMessageHelper.setTo(TO);
+            mimeMessageHelper.setSubject("E-mail Template");
+
+            mimeMessageHelper.setText(getPessoaTemplate(pessoa, op), true);
+
+            emailSender.send(mimeMessageHelper.getMimeMessage());
+        } catch (MessagingException | IOException | TemplateException e) {
+            e.printStackTrace();
+            throw new RegraDeNegocioException("ERRO ao enviar e-mail.");
+        }
     }
 
-    public String getPessoaTemplate(Pessoa pessoa) throws IOException, TemplateException {
+    public void enviarEmailParaPessoaExcluida(PessoaDTO pessoa) throws RegraDeNegocioException {
+        MimeMessage mimeMessage = emailSender.createMimeMessage();
+        Integer op = 3;
+        try {
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+
+            mimeMessageHelper.setFrom(from);
+            mimeMessageHelper.setTo(TO);
+            mimeMessageHelper.setSubject("E-mail Template");
+
+            mimeMessageHelper.setText(getPessoaTemplate(pessoa, op), true);
+
+            emailSender.send(mimeMessageHelper.getMimeMessage());
+        } catch (MessagingException | IOException | TemplateException e) {
+            e.printStackTrace();
+            throw new RegraDeNegocioException("ERRO ao enviar e-mail.");
+        }
+    }
+
+    public String getPessoaTemplate(PessoaDTO pessoa, Integer opc) throws IOException, TemplateException {
         Map<String, Object> dados = new HashMap<>();
-        dados.put("nome", "Pessoal do sistema");
+        dados.put("nome", "Sistema");
         dados.put("pessoa", pessoa);
 
-        Template template = fmConfiguration.getTemplate("email-template-pessoa.ftl");
-        String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, dados);
-        return html;
+        switch (opc) {
+            case 1:
+                Template template1 = fmConfiguration.getTemplate("email-template-pessoa-inserir.ftl");
+                String html1 = FreeMarkerTemplateUtils.processTemplateIntoString(template1, dados);
+                return html1;
+            case 2:
+                Template template2 = fmConfiguration.getTemplate("email-template-pessoa-atualizar.ftl");
+                String html2 = FreeMarkerTemplateUtils.processTemplateIntoString(template2, dados);
+                return html2;
+            case 3:
+                Template template3 = fmConfiguration.getTemplate("email-template-pessoa-excluir.ftl");
+                String html3 = FreeMarkerTemplateUtils.processTemplateIntoString(template3, dados);
+                return html3;
+            default:
+                return "Opção inválida!";
+
+        }
     }
 }

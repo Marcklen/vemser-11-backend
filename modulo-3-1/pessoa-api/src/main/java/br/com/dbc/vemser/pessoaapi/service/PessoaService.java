@@ -48,11 +48,17 @@ public class PessoaService {
         pessoaRecuperada.setDataNascimento(pessoaAtualizar.getDataNascimento());
         pessoaRecuperada.setEmail(pessoaAtualizar.getEmail());
 
-        return objectMapper.convertValue(pessoaRecuperada, PessoaDTO.class);
+        PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaRecuperada, PessoaDTO.class);
+        emailService.enviarEmailParaPessoaAtualizada(pessoaDTO);
+
+        return pessoaDTO;
     }
 
     public void delete(Integer id) throws Exception {
         Pessoa pessoaRecuperada = getPessoa(id);
+        // fiz essa conversão para verificar se o objeto está sendo convertido corretamente e se consigo exclui-lo
+        PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaRecuperada, PessoaDTO.class);
+        emailService.enviarEmailParaPessoaExcluida(pessoaDTO);
         pessoaRepository.delete(pessoaRecuperada);
     }
 

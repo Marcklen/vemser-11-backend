@@ -74,7 +74,7 @@ public class PessoaController {
                                          @Valid @RequestBody PessoaCreateDTO pessoaAtualizar) throws Exception {
         log.info("Atualizando pessoa: " + pessoaAtualizar);
         PessoaDTO update = pessoaService.update(id, pessoaAtualizar);
-        log.info("Pessoa atualizada: " + update);
+        log.info("Pessoa atualizada: " + update + "\nEmail enviado com sucesso para " + update.getEmail() + "!");
         return new ResponseEntity<>(update, HttpStatus.OK);
     }
 
