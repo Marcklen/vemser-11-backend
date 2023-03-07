@@ -1,5 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
+import br.com.dbc.vemser.pessoaapi.controller.impl.IContatoController;
 import br.com.dbc.vemser.pessoaapi.dto.ContatoCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.ContatoDTO;
 import br.com.dbc.vemser.pessoaapi.entity.Contato;
@@ -17,7 +18,7 @@ import java.util.List;
 @RequestMapping("/contato") // http://localhost:8080/contato
 @Validated
 @Slf4j
-public class ContatoController {
+public class ContatoController implements IContatoController {
 
     private final ContatoService contatoService;
 
@@ -35,9 +36,10 @@ public class ContatoController {
         return new ResponseEntity<>(contatoService.findByIdPessoa(idPessoa), HttpStatus.OK);
     }
 
+
     @PostMapping("/{idPessoa}")
     public ResponseEntity<ContatoDTO> create(@PathVariable("idPessoa") Integer idPessoa,
-                          @Valid @RequestBody ContatoCreateDTO contato) throws Exception {
+                                             @Valid @RequestBody ContatoCreateDTO contato) throws Exception {
 
         log.info("Criando contato: " + contato);
         ContatoDTO c = contatoService.create(idPessoa, contato);
@@ -48,7 +50,7 @@ public class ContatoController {
 
     @PutMapping("/{idContato}")
     public ResponseEntity<ContatoDTO> update(@PathVariable("idContato") Integer id,
-                          @Valid @RequestBody ContatoCreateDTO contatoAtualizar) throws Exception {
+                                             @Valid @RequestBody ContatoCreateDTO contatoAtualizar) throws Exception {
         log.info("Atualizando contato: " + contatoAtualizar);
         ContatoDTO update = contatoService.update(id, contatoAtualizar);
         log.info("Contato atualizado: " + update);
@@ -60,7 +62,6 @@ public class ContatoController {
         log.info("Deletando contato: " + id);
         contatoService.delete(id);
         log.info("Contato deletado com sucesso");
-//        return ResponseEntity.ok().build();
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

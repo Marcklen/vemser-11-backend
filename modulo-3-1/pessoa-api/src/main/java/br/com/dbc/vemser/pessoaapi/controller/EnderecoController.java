@@ -1,5 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
+import br.com.dbc.vemser.pessoaapi.controller.impl.IEnderecoController;
 import br.com.dbc.vemser.pessoaapi.dto.EnderecoCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.EnderecoDTO;
 import br.com.dbc.vemser.pessoaapi.entity.Endereco;
@@ -17,7 +18,7 @@ import java.util.List;
 @RequestMapping("/endereco") // http://localhost:8080/endereco
 @Validated
 @Slf4j
-public class EnderecoController {
+public class EnderecoController implements IEnderecoController {
 
     private final EnderecoService enderecoService;
 
