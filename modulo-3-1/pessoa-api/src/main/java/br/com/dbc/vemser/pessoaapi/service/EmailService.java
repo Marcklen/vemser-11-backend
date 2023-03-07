@@ -36,7 +36,7 @@ public class EmailService {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
 
             mimeMessageHelper.setFrom(from);
-            mimeMessageHelper.setTo(TO);
+            mimeMessageHelper.setTo(pessoa.getEmail());
             mimeMessageHelper.setSubject("E-mail Template");
 
             mimeMessageHelper.setText(getPessoaTemplate(pessoa, op), true);
@@ -55,7 +55,7 @@ public class EmailService {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
 
             mimeMessageHelper.setFrom(from);
-            mimeMessageHelper.setTo(TO);
+            mimeMessageHelper.setTo(pessoa.getEmail());
             mimeMessageHelper.setSubject("E-mail Template");
 
             mimeMessageHelper.setText(getPessoaTemplate(pessoa, op), true);
@@ -74,7 +74,7 @@ public class EmailService {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
 
             mimeMessageHelper.setFrom(from);
-            mimeMessageHelper.setTo(TO);
+            mimeMessageHelper.setTo(pessoa.getEmail());
             mimeMessageHelper.setSubject("E-mail Template");
 
             mimeMessageHelper.setText(getPessoaTemplate(pessoa, op), true);
@@ -117,7 +117,7 @@ public class EmailService {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
 
             mimeMessageHelper.setFrom(from);
-            mimeMessageHelper.setTo(TO);
+            mimeMessageHelper.setTo(pessoa.getEmail());
             mimeMessageHelper.setSubject("E-mail Template");
 
             mimeMessageHelper.setText(getEnderecoTemplate(enderecoDTO, pessoa, op), true);
@@ -136,7 +136,7 @@ public class EmailService {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
 
             mimeMessageHelper.setFrom(from);
-            mimeMessageHelper.setTo(TO);
+            mimeMessageHelper.setTo(pessoa.getEmail());
             mimeMessageHelper.setSubject("E-mail Template");
 
             mimeMessageHelper.setText(getEnderecoTemplate(enderecoDTO, pessoa, op), true);
@@ -155,7 +155,7 @@ public class EmailService {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
 
             mimeMessageHelper.setFrom(from);
-            mimeMessageHelper.setTo(TO);
+            mimeMessageHelper.setTo(pessoa.getEmail());
             mimeMessageHelper.setSubject("E-mail Template");
 
             mimeMessageHelper.setText(getEnderecoTemplate(enderecoDTO, pessoa, op), true);
