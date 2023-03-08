@@ -22,32 +22,32 @@ public class DadosPessoaisController implements IDadosPessoaisDoc {
 
     private final DadosPessoaisService dadosPessoaisService;
 
-    // buscar todos
     @GetMapping
     public ResponseEntity<List<DadosPessoaisDTO>> getAll() {
+        log.info("solicitando requisição para buscar todos os dados pessoais");
         return new ResponseEntity<>(dadosPessoaisService.getAll(), HttpStatus.OK);
     }
 
-    // buscar por cpf
     @GetMapping("/{cpf}")
     public ResponseEntity<DadosPessoaisDTO> getByCpf(@PathVariable("cpf") String cpf) {
+        log.info("solicitando requisição para buscar dados pessoais por cpf");
         return new ResponseEntity<>(dadosPessoaisService.get(cpf), HttpStatus.OK);
     }
 
-    // criar um novo
     @PostMapping
     public ResponseEntity<DadosPessoaisDTO> post(@RequestBody DadosPessoaisDTO dadosPessoaisDTO) {
+        log.info("solicitando requisição para criar novos dados pessoais");
         return new ResponseEntity<>(dadosPessoaisService.post(dadosPessoaisDTO), HttpStatus.CREATED);
     }
 
-    // atualizar um existente
     @PutMapping("/{cpf}")
     public ResponseEntity<DadosPessoaisDTO> put(@PathVariable("cpf") String cpf, @RequestBody DadosPessoaisDTO dadosPessoaisDTO) {
+        log.info("solicitando requisição para atualizar dados pessoais");
         return new ResponseEntity<>(dadosPessoaisService.put(cpf, dadosPessoaisDTO), HttpStatus.OK);
     }
-    // deletar um existente
     @DeleteMapping("/{cpf}")
     public ResponseEntity<Void> delete(@PathVariable("cpf") String cpf) {
+        log.info("solicitando requisição para deletar dados pessoais");
         dadosPessoaisService.delete(cpf);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
