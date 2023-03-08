@@ -15,7 +15,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 // classe responsavel por implementar o CRUD no Pessoa Controller e Configurar o Swagger
-public interface IPessoaController {
+public interface IPessoaDoc {
 
     @Operation(summary = "Listar pessoas", description = "Lista todas as pessoas do banco")
     @ApiResponses(

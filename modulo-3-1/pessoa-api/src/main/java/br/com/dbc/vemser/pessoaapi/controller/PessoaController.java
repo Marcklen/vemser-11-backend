@@ -1,6 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
-import br.com.dbc.vemser.pessoaapi.controller.impl.IPessoaController;
+import br.com.dbc.vemser.pessoaapi.controller.impl.IPessoaDoc;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
 import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
@@ -22,7 +22,7 @@ import java.util.List;
 @Validated
 @Slf4j
 @RequiredArgsConstructor
-public class PessoaController implements IPessoaController {
+public class PessoaController implements IPessoaDoc {
 
     private final PessoaService pessoaService;
     private final PropertieReader propertieReader;

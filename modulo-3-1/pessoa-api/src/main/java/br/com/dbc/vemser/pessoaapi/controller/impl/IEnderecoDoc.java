@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.validation.Valid;
 import java.util.List;
 
-public interface IEnderecoController {
+public interface IEnderecoDoc {
 
     @Operation(summary = "Listar Endereços", description = "Lista todos os endereços do banco")
     @ApiResponses(

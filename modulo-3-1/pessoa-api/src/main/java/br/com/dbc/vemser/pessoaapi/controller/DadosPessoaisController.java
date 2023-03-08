@@ -1,6 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
 
+import br.com.dbc.vemser.pessoaapi.controller.impl.IDadosPessoaisDoc;
 import br.com.dbc.vemser.pessoaapi.dto.DadosPessoaisDTO;
 import br.com.dbc.vemser.pessoaapi.service.DadosPessoaisService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ import java.util.List;
 @Validated
 @RequiredArgsConstructor
 @Slf4j
-public class DadosPessoaisController {
+public class DadosPessoaisController implements IDadosPessoaisDoc {
 
     private final DadosPessoaisService dadosPessoaisService;
 

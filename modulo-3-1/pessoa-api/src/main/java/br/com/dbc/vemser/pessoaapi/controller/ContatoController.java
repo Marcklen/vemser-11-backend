@@ -1,6 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
-import br.com.dbc.vemser.pessoaapi.controller.impl.IContatoController;
+import br.com.dbc.vemser.pessoaapi.controller.impl.IContatoDoc;
 import br.com.dbc.vemser.pessoaapi.dto.ContatoCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.ContatoDTO;
 import br.com.dbc.vemser.pessoaapi.entity.Contato;
@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/contato") // http://localhost:8080/contato
 @Validated
 @Slf4j
-public class ContatoController implements IContatoController {
+public class ContatoController implements IContatoDoc {
 
     private final ContatoService contatoService;
 

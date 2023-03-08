@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.validation.Valid;
 import java.util.List;
 
-public interface IContatoController {
+public interface IContatoDoc {
 
     @Operation(summary = "Listar Contatos", description = "Lista todos os contatos do banco")
     @ApiResponses(
