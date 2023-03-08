@@ -5,16 +5,24 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class DadosPessoaisDTO {
+public class PessoaDadosPessoaisDTO {
 
     @Schema(description = "Nome", example = "Fulano", required = true)
     private String nome;
 
+    @Schema(description = "Data de Nascimento", example = "1986-01-01", required = true)
+    private LocalDate dataNascimento;
+
     @Schema(description = "CPF", example = "52478956325", required = true)
     private String cpf;
+
+    @Schema(description = "Nome", example = "Fulano", required = true)
+    private String email;
 
     @Schema(description = "RG", example = "12345678910", required = true)
     private String rg;
@@ -33,4 +41,5 @@ public class DadosPessoaisDTO {
 
     @Schema(description = "Sexo", example = "F para Feminino", required = true)
     private Sexo sexo;
+
 }
