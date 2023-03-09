@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class DadosPessoaisService implements DadosPessoaisClient {
+public class DadosPessoaisService { // implements DadosPessoaisClient {
 
     private final DadosPessoaisClient client;
 

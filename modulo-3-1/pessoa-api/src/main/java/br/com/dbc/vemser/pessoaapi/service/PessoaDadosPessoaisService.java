@@ -2,6 +2,7 @@ package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.dto.DadosPessoaisDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
+import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaDadosPessoaisDTO;
 import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
@@ -10,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +26,6 @@ public class PessoaDadosPessoaisService {
 
 
     public PessoaDadosPessoaisDTO createComDados(PessoaDadosPessoaisDTO pessoaDadosPessoais) throws Exception {
-
         PessoaCreateDTO pessoaCreateDTO = objectMapper.convertValue(pessoaDadosPessoais, PessoaCreateDTO.class);
         DadosPessoaisDTO dadosPessoaisDTO = objectMapper.convertValue(pessoaDadosPessoais, DadosPessoaisDTO.class);
         PessoaDadosPessoaisDTO pessoaComDadosPessoais = objectMapper.convertValue(pessoaDadosPessoais, PessoaDadosPessoaisDTO.class);
@@ -40,10 +41,43 @@ public class PessoaDadosPessoaisService {
     }
 
     public List<PessoaDadosPessoaisDTO> listarTodosComDados() {
-        return dadosPessoaisService
-                .getAll()
+        List<PessoaDTO> pessoaDTOList = pessoaService.list();
+        List<PessoaDadosPessoaisDTO> pessoaDadosPessoaisDTOList = new ArrayList<>();
+        for (PessoaDTO dto : pessoaDTOList) {
+            try {
+                PessoaDadosPessoaisDTO pessoaDadosPessoaisDTO =
+                        getPessoaComDados(dto.getCpf());
+                pessoaDadosPessoaisDTOList.add(pessoaDadosPessoaisDTO);
+            } catch (RegraDeNegocioException e) {
+                e.printStackTrace();
+            }
+        }
+        return pessoaDadosPessoaisDTOList;
+    }
+
+    // metodo para atualizar / update method
+    public PessoaDadosPessoaisDTO atualizarComDados(PessoaDadosPessoaisDTO pessoaDadosPessoais) throws Exception {
+        PessoaCreateDTO pessoaCreateDTO = objectMapper.convertValue(pessoaDadosPessoais, PessoaCreateDTO.class);
+        DadosPessoaisDTO dadosPessoaisDTO = objectMapper.convertValue(pessoaDadosPessoais, DadosPessoaisDTO.class);
+        PessoaDadosPessoaisDTO pessoaComDadosPessoais = objectMapper.convertValue(pessoaDadosPessoais, PessoaDadosPessoaisDTO.class);
+        if (pessoaCreateDTO.getCpf().equals(pessoaComDadosPessoais.getCpf())) {
+            pessoaComDadosPessoais.setCpf(dadosPessoaisDTO.getCpf());
+            dadosPessoaisDTO.setCpf(pessoaComDadosPessoais.getCpf());
+            return pessoaComDadosPessoais;
+        } else {
+            throw new RegraDeNegocioException("CPF não confere com o CPF do cadastro de dados pessoais");
+        }
+    }
+
+    private PessoaDadosPessoaisDTO getPessoaComDados(String cpf) throws RegraDeNegocioException {
+        return pessoaService.list()
                 .stream()
-                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaDadosPessoaisDTO.class))
-                .collect(Collectors.toList());
+                .map(pessoa -> {
+                    PessoaDadosPessoaisDTO pessoaDadosPessoaisDTO = objectMapper.convertValue(pessoa, PessoaDadosPessoaisDTO.class);
+                    pessoaDadosPessoaisDTO.getCpf();
+                    return pessoaDadosPessoaisDTO;
+                })
+                .collect(Collectors.toList())
+                .get(0);
     }
 }

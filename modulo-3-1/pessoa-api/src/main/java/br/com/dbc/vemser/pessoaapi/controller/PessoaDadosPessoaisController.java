@@ -21,7 +21,7 @@ public class PessoaDadosPessoaisController {
     private final PessoaDadosPessoaisService pessoaDadosPessoaisService;
 
     @PostMapping
-    public ResponseEntity<PessoaDadosPessoaisDTO> create (
+    public ResponseEntity<PessoaDadosPessoaisDTO> create(
             @RequestBody PessoaDadosPessoaisDTO pessoaDadosPessoaisDTO) throws Exception {
         log.info("solicitando requisição para criar novos dados pessoais");
         return new ResponseEntity<>(pessoaDadosPessoaisService.createComDados(pessoaDadosPessoaisDTO), HttpStatus.CREATED);
@@ -33,5 +33,10 @@ public class PessoaDadosPessoaisController {
         return new ResponseEntity<>(pessoaDadosPessoaisService.listarTodosComDados(), HttpStatus.OK);
     }
 
-
+    @PutMapping("/{cpf}")
+    public ResponseEntity<PessoaDadosPessoaisDTO> atualizarComDados( @PathVariable String cpf,
+                        @RequestBody PessoaDadosPessoaisDTO pessoaDadosPessoaisDTO) throws Exception {
+        log.info("solicitando requisição para atualizar dados pessoais");
+        return new ResponseEntity<>(pessoaDadosPessoaisService.atualizarComDados(pessoaDadosPessoaisDTO), HttpStatus.OK);
+    }
 }
