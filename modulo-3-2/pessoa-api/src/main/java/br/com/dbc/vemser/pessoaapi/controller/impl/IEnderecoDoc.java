@@ -2,7 +2,7 @@ package br.com.dbc.vemser.pessoaapi.controller.impl;
 
 import br.com.dbc.vemser.pessoaapi.dto.EnderecoCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.EnderecoDTO;
-import br.com.dbc.vemser.pessoaapi.entity.Endereco;
+import br.com.dbc.vemser.pessoaapi.entity.EnderecoEntity;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -33,7 +33,7 @@ public interface IEnderecoDoc {
                     @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
             }
     )
-    ResponseEntity<List<Endereco>> listarEnderecosPorPessoa(@PathVariable("idPessoa") Integer idPessoa) throws Exception;
+    ResponseEntity<List<EnderecoEntity>> listarEnderecosPorPessoa(@PathVariable("idPessoa") Integer idPessoa) throws Exception;
 
     @Operation(summary = "Listar Endereços por ID", description = "Lista todos os endereços do banco por ID")
     @ApiResponses(
@@ -43,7 +43,7 @@ public interface IEnderecoDoc {
                     @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
             }
     )
-    ResponseEntity<List<Endereco>> buscarEnderecoPorId(@PathVariable("idEndereco") Integer idEndereco) throws Exception;
+    ResponseEntity<List<EnderecoEntity>> buscarEnderecoPorId(@PathVariable("idEndereco") Integer idEndereco) throws Exception;
 
     @Operation(summary = "Adicionar Endereço", description = "Adiciona um endereço no banco")
     @ApiResponses(

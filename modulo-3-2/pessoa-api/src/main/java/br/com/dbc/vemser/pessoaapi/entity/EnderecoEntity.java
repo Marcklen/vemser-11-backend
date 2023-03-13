@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Endereco {
+public class EnderecoEntity {
     private Integer idEndereco;
     private Integer idPessoa;
     private TipoEndereco tipo;

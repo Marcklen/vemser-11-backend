@@ -2,13 +2,15 @@ package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
-import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
+import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
 import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
+import br.com.dbc.vemser.pessoaapi.repository.PessoaRepositoryOld;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PessoaService {
 
+    //    private final PessoaRepositoryOld pessoaRepositoryOld;
     private final PessoaRepository pessoaRepository;
     private final ObjectMapper objectMapper;
     private final EmailService emailService;
@@ -23,9 +26,10 @@ public class PessoaService {
 
     public PessoaDTO create(PessoaCreateDTO pessoa) throws Exception {
 
-        Pessoa pessoaEntity = objectMapper.convertValue(pessoa, Pessoa.class);
-        Pessoa pessoaCriada = pessoaRepository.create(pessoaEntity);
-        PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaCriada, PessoaDTO.class);
+        PessoaEntity pessoaEntity = objectMapper.convertValue(pessoa, PessoaEntity.class);
+//        PessoaEntity pessoaEntityCriada = pessoaRepositoryOld.create(pessoaEntity);
+        PessoaEntity pessoaEntityCriada = pessoaRepository.save(pessoaEntity);
+        PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaEntityCriada, PessoaDTO.class);
 
         emailService.enviarEmailParaPessoaCadastrada(pessoaDTO);
 
@@ -33,7 +37,8 @@ public class PessoaService {
     }
 
     public List<PessoaDTO> list() {
-        return pessoaRepository.list()
+//        return pessoaRepositoryOld.list()
+        return pessoaRepository.findAll()
                 .stream()
                 .map(pessoa -> objectMapper.convertValue(pessoa, PessoaDTO.class))
                 .collect(Collectors.toList());
@@ -41,40 +46,47 @@ public class PessoaService {
 
     public PessoaDTO update(Integer id,
                             PessoaCreateDTO pessoaAtualizar) throws Exception {
-        Pessoa pessoaRecuperada = getPessoa(id);
+        PessoaEntity pessoaEntityRecuperada = getPessoa(id);
 
-        pessoaRecuperada.setCpf(pessoaAtualizar.getCpf());
-        pessoaRecuperada.setNome(pessoaAtualizar.getNome());
-        pessoaRecuperada.setDataNascimento(pessoaAtualizar.getDataNascimento());
-        pessoaRecuperada.setEmail(pessoaAtualizar.getEmail());
+        pessoaEntityRecuperada.setCpf(pessoaAtualizar.getCpf());
+        pessoaEntityRecuperada.setNome(pessoaAtualizar.getNome());
+        pessoaEntityRecuperada.setDataNascimento(pessoaAtualizar.getDataNascimento());
+        pessoaEntityRecuperada.setEmail(pessoaAtualizar.getEmail());
 
-        PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaRecuperada, PessoaDTO.class);
+        pessoaEntityRecuperada = pessoaRepository.save(pessoaEntityRecuperada);
+
+        PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaEntityRecuperada, PessoaDTO.class);
         emailService.enviarEmailParaPessoaAtualizada(pessoaDTO);
 
         return pessoaDTO;
     }
 
     public void delete(Integer id) throws Exception {
-        Pessoa pessoaRecuperada = getPessoa(id);
+        PessoaEntity pessoaEntityRecuperada = getPessoa(id);
         // fiz essa conversão para verificar se o objeto está sendo convertido corretamente e se consigo exclui-lo
-        PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaRecuperada, PessoaDTO.class);
+        PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaEntityRecuperada, PessoaDTO.class);
         emailService.enviarEmailParaPessoaExcluida(pessoaDTO);
-        pessoaRepository.delete(pessoaRecuperada);
+//        pessoaRepositoryOld.delete(pessoaEntityRecuperada);
+        pessoaRepository.delete(pessoaEntityRecuperada);
     }
 
-    public List<Pessoa> listByName(String nome) throws RegraDeNegocioException {
-        List<Pessoa> pessoaList = pessoaRepository.listByName(nome);
-        if (pessoaList.isEmpty()) {
+    public List<PessoaEntity> listByName(String nome) throws RegraDeNegocioException {
+//        List<PessoaEntity> pessoaEntityList = pessoaRepositoryOld.listByName(nome);
+//        List<PessoaEntity> pessoaEntityList = pessoaRepository.findAllByNomeContainingIgnoreCase(nome);
+        List<PessoaEntity> pessoaEntityList = new ArrayList<>();
+        if (pessoaEntityList.isEmpty()) {
             throw new RegraDeNegocioException("Nenhuma pessoa encontrada com o nome: " + nome.toUpperCase());
         }
-        return pessoaList;
+        return pessoaEntityList;
     }
 
-    public Pessoa getPessoa(Integer id) throws Exception {
-        Pessoa pessoaRecuperada = pessoaRepository.list().stream()
-                .filter(pessoa -> pessoa.getIdPessoa().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada!"));
+    public PessoaEntity getPessoa(Integer id) throws Exception {
+//        PessoaEntity pessoaEntityRecuperada = pessoaRepositoryOld.list().stream()
+//                .filter(pessoa -> pessoa.getIdPessoa().equals(id))
+//                .findFirst()
+        PessoaEntity pessoaRecuperada =
+                pessoaRepository.findById(id)
+                        .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada!"));
         return pessoaRecuperada;
     }
 }

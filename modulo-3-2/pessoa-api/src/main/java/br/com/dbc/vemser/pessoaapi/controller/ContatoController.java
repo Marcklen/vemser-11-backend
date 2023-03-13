@@ -3,7 +3,7 @@ package br.com.dbc.vemser.pessoaapi.controller;
 import br.com.dbc.vemser.pessoaapi.controller.impl.IContatoDoc;
 import br.com.dbc.vemser.pessoaapi.dto.ContatoCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.ContatoDTO;
-import br.com.dbc.vemser.pessoaapi.entity.Contato;
+import br.com.dbc.vemser.pessoaapi.entity.ContatoEntity;
 import br.com.dbc.vemser.pessoaapi.service.ContatoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -32,7 +32,7 @@ public class ContatoController implements IContatoDoc {
     }
 
     @GetMapping("/{idPessoa}")
-    public ResponseEntity<List<Contato>> findByIdPessoa(@PathVariable("idPessoa") Integer idPessoa) throws Exception {
+    public ResponseEntity<List<ContatoEntity>> findByIdPessoa(@PathVariable("idPessoa") Integer idPessoa) throws Exception {
         return new ResponseEntity<>(contatoService.findByIdPessoa(idPessoa), HttpStatus.OK);
     }
 

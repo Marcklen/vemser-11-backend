@@ -3,7 +3,7 @@ package br.com.dbc.vemser.pessoaapi.controller;
 import br.com.dbc.vemser.pessoaapi.controller.impl.IPessoaDoc;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
-import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
+import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
 import br.com.dbc.vemser.pessoaapi.service.EmailService;
 import br.com.dbc.vemser.pessoaapi.service.PessoaService;
 import br.com.dbc.vemser.pessoaapi.service.PropertieReader;
@@ -47,7 +47,7 @@ public class PessoaController implements IPessoaDoc {
 
 
     @GetMapping("/byname") // GET localhost:8080/pessoa/byname?nome=Rafa
-    public ResponseEntity<List<Pessoa>> listByName(@RequestParam("nome") String nome) throws Exception {
+    public ResponseEntity<List<PessoaEntity>> listByName(@RequestParam("nome") String nome) throws Exception {
         return new ResponseEntity<>(pessoaService.listByName(nome), HttpStatus.OK);
     }
 

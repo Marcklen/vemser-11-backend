@@ -3,7 +3,7 @@ package br.com.dbc.vemser.pessoaapi.controller;
 import br.com.dbc.vemser.pessoaapi.controller.impl.IEnderecoDoc;
 import br.com.dbc.vemser.pessoaapi.dto.EnderecoCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.EnderecoDTO;
-import br.com.dbc.vemser.pessoaapi.entity.Endereco;
+import br.com.dbc.vemser.pessoaapi.entity.EnderecoEntity;
 import br.com.dbc.vemser.pessoaapi.service.EnderecoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -32,13 +32,13 @@ public class EnderecoController implements IEnderecoDoc {
     }
 
     @GetMapping("/{idPessoa}/pessoa")
-    public ResponseEntity<List<Endereco>> listarEnderecosPorPessoa(@PathVariable("idPessoa") Integer idPessoa)
+    public ResponseEntity<List<EnderecoEntity>> listarEnderecosPorPessoa(@PathVariable("idPessoa") Integer idPessoa)
             throws Exception {
         return new ResponseEntity<>(enderecoService.listarEnderecosPorIdPessoa(idPessoa), HttpStatus.OK);
     }
 
     @GetMapping("/{idEndereco}")
-    public ResponseEntity<List<Endereco>> buscarEnderecoPorId(@PathVariable("idEndereco") Integer idEndereco)
+    public ResponseEntity<List<EnderecoEntity>> buscarEnderecoPorId(@PathVariable("idEndereco") Integer idEndereco)
             throws Exception {
         return new ResponseEntity<>(enderecoService.buscarEnderecoPorId(idEndereco), HttpStatus.OK);
     }

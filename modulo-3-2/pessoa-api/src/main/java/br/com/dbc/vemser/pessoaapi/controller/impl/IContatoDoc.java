@@ -2,7 +2,7 @@ package br.com.dbc.vemser.pessoaapi.controller.impl;
 
 import br.com.dbc.vemser.pessoaapi.dto.ContatoCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.ContatoDTO;
-import br.com.dbc.vemser.pessoaapi.entity.Contato;
+import br.com.dbc.vemser.pessoaapi.entity.ContatoEntity;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -33,7 +33,7 @@ public interface IContatoDoc {
                     @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
             }
     )
-    ResponseEntity<List<Contato>> findByIdPessoa(@PathVariable("idPessoa") Integer idPessoa) throws Exception;
+    ResponseEntity<List<ContatoEntity>> findByIdPessoa(@PathVariable("idPessoa") Integer idPessoa) throws Exception;
 
     @Operation(summary = "Adicionar Contato", description = "Adiciona um contato no banco")
     @ApiResponses(

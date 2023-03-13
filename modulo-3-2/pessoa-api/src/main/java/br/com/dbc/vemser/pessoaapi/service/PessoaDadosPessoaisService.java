@@ -4,9 +4,9 @@ import br.com.dbc.vemser.pessoaapi.dto.DadosPessoaisDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaDadosPessoaisDTO;
-import br.com.dbc.vemser.pessoaapi.entity.Pessoa;
+import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
 import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
-import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
+import br.com.dbc.vemser.pessoaapi.repository.PessoaRepositoryOld;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class PessoaDadosPessoaisService {
 
     private final ObjectMapper objectMapper;
     private final PessoaService pessoaService;
-    private final PessoaRepository pessoaRepository;
+    private final PessoaRepositoryOld pessoaRepositoryOld;
     private final DadosPessoaisService dadosPessoaisService;
 
 
@@ -29,11 +29,11 @@ public class PessoaDadosPessoaisService {
         PessoaCreateDTO pessoaCreateDTO = objectMapper.convertValue(pessoaDadosPessoais, PessoaCreateDTO.class);
         DadosPessoaisDTO dadosPessoaisDTO = objectMapper.convertValue(pessoaDadosPessoais, DadosPessoaisDTO.class);
         PessoaDadosPessoaisDTO pessoaComDadosPessoais = objectMapper.convertValue(pessoaDadosPessoais, PessoaDadosPessoaisDTO.class);
-        Pessoa pessoaSemDadosPessoais = pessoaRepository.create(objectMapper.convertValue(pessoaCreateDTO, Pessoa.class));
+        PessoaEntity pessoaEntitySemDadosPessoais = pessoaRepositoryOld.create(objectMapper.convertValue(pessoaCreateDTO, PessoaEntity.class));
         dadosPessoaisService.post(dadosPessoaisDTO);
-        if (pessoaSemDadosPessoais.getCpf().equals(pessoaComDadosPessoais.getCpf())) {
-            pessoaComDadosPessoais.setCpf(pessoaSemDadosPessoais.getCpf());
-            pessoaSemDadosPessoais.setCpf(pessoaComDadosPessoais.getCpf());
+        if (pessoaEntitySemDadosPessoais.getCpf().equals(pessoaComDadosPessoais.getCpf())) {
+            pessoaComDadosPessoais.setCpf(pessoaEntitySemDadosPessoais.getCpf());
+            pessoaEntitySemDadosPessoais.setCpf(pessoaComDadosPessoais.getCpf());
             return pessoaComDadosPessoais;
         } else {
             throw new RegraDeNegocioException("CPF não confere com o CPF do cadastro de dados pessoais");
