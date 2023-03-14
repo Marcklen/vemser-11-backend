@@ -28,8 +28,8 @@ public class PessoaService {
 
         PessoaEntity pessoaEntity = objectMapper.convertValue(pessoa, PessoaEntity.class);
 //        PessoaEntity pessoaEntityCriada = pessoaRepositoryOld.create(pessoaEntity);
-        PessoaEntity pessoaEntityCriada = pessoaRepository.save(pessoaEntity);
-        PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaEntityCriada, PessoaDTO.class);
+        pessoaEntity = pessoaRepository.save(pessoaEntity);
+        PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaEntity, PessoaDTO.class);
 
         emailService.enviarEmailParaPessoaCadastrada(pessoaDTO);
 
