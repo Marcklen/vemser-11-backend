@@ -36,7 +36,7 @@ public interface IPessoaDoc {
                     @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
             }
     )
-    ResponseEntity<List<PessoaEntity>> listByName(@RequestParam("nome") String nome) throws Exception;
+    ResponseEntity<List<PessoaEntity>> findByNome(@RequestParam("nome") String nome) throws Exception;
 
 
     @Operation(summary = "Adicionar pessoa", description = "Adiciona uma pessoa no banco")

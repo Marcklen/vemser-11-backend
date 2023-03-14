@@ -47,7 +47,7 @@ public class PessoaController implements IPessoaDoc {
 
 
     @GetMapping("/byname") // GET localhost:8080/pessoa/byname?nome=Rafa
-    public ResponseEntity<List<PessoaEntity>> listByName(@RequestParam("nome") String nome) throws Exception {
+    public ResponseEntity<List<PessoaEntity>> findByNome(@RequestParam("nome") String nome) throws Exception {
         return new ResponseEntity<>(pessoaService.listByName(nome), HttpStatus.OK);
     }
 

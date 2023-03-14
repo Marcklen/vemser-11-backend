@@ -72,8 +72,11 @@ public class PessoaService {
 
     public List<PessoaEntity> listByName(String nome) throws RegraDeNegocioException {
 //        List<PessoaEntity> pessoaEntityList = pessoaRepositoryOld.listByName(nome);
-//        List<PessoaEntity> pessoaEntityList = pessoaRepository.findAllByNomeContainingIgnoreCase(nome);
-        List<PessoaEntity> pessoaEntityList = new ArrayList<>();
+        List<PessoaEntity> pessoaEntityList =
+                pessoaRepository.findByNome(nome)
+                        .stream()
+                        .filter(pessoa -> pessoa.getNome().toUpperCase().contains(nome.toUpperCase()))
+                        .collect(Collectors.toList());
         if (pessoaEntityList.isEmpty()) {
             throw new RegraDeNegocioException("Nenhuma pessoa encontrada com o nome: " + nome.toUpperCase());
         }
