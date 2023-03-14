@@ -50,9 +50,9 @@ public class ConsultasController {
     // http://localhost:8080/consultas/pessoa?dataInicio=2020-01-01&dataFinal=2020-12-31
     @GetMapping("/pessoas-data-nascimento")
     public ResponseEntity<List<PessoaEntity>> buscarPorDataNascimentoEntre(
-            @RequestParam("dataInicio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime dataInicio,
-            @RequestParam("dataFinal") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime dataFinal) {
-        return new ResponseEntity<>(pessoaRepository.findByDataNascimentoBetween(dataInicio.toString(), dataFinal.toString()), HttpStatus.OK);
+            @RequestParam("dataInicio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataInicio,
+            @RequestParam("dataFinal") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataFinal) {
+        return new ResponseEntity<>(pessoaRepository.findByDataNascimentoBetween(dataInicio, dataFinal), HttpStatus.OK);
     }
 
     // http://localhost:8080/consultas/contato?tipoContato=COMERCIAL ou RESIDENCIAL
