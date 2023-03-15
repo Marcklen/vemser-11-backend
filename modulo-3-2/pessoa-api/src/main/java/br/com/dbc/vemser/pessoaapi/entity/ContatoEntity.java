@@ -1,5 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.entity;
 
+import br.com.dbc.vemser.pessoaapi.entity.enums.TipoContato;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,7 +18,7 @@ public class ContatoEntity {
     @Column(name = "ID_CONTATO")
     private Integer idContato;
 
-    @Column(name = "id_pessoa", insertable = false, updatable = false)
+    @Column(name = "id_pessoa", insertable = false, updatable = false) // campo somente de leitura
     private Integer idPessoa;
 
     @Column(name = "TIPO")
@@ -30,7 +31,8 @@ public class ContatoEntity {
     @Column(name = "DESCRICAO")
     private String descricao;
 
-    @ManyToOne
-    @JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID_PESSOA", insertable = false, updatable = false)
+//    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID_PESSOA")
     private PessoaEntity pessoaEntity;
 }

@@ -34,7 +34,8 @@ public class EnderecoController implements IEnderecoDoc {
     @GetMapping("/{idPessoa}/pessoa")
     public ResponseEntity<List<EnderecoEntity>> listarEnderecosPorPessoa(@PathVariable("idPessoa") Integer idPessoa)
             throws Exception {
-        return new ResponseEntity<>(enderecoService.listarEnderecosPorIdPessoa(idPessoa), HttpStatus.OK);
+//        return new ResponseEntity<>(enderecoService.listarEnderecosPorIdPessoa(idPessoa), HttpStatus.OK);
+        return null;
     }
 
     @GetMapping("/{idEndereco}")

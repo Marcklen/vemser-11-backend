@@ -1,7 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.repository.old;
 
 import br.com.dbc.vemser.pessoaapi.entity.ContatoEntity;
-import br.com.dbc.vemser.pessoaapi.entity.TipoContato;
 import br.com.dbc.vemser.pessoaapi.service.PessoaService;
 import org.springframework.stereotype.Repository;
 

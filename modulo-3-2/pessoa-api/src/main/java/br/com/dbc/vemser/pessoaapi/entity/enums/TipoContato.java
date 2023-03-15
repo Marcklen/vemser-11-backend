@@ -1,18 +1,17 @@
-package br.com.dbc.vemser.pessoaapi.entity;
+package br.com.dbc.vemser.pessoaapi.entity.enums;
 
 import java.util.Arrays;
 
-public enum TipoEndereco {
+public enum TipoContato {
     RESIDENCIAL(1), COMERCIAL(2);
 
     private Integer tipo;
 
-    TipoEndereco(Integer tipo) { this.tipo = tipo; }
-
+    TipoContato(Integer tipo) { this.tipo = tipo; }
     public Integer getTipo() { return tipo; }
 
-    public static TipoEndereco ofTipo(Integer tipo) {
-        return Arrays.stream(TipoEndereco.values())
+    public static TipoContato ofTipo(Integer tipo) {
+        return Arrays.stream(TipoContato.values())
                 .filter(tp -> tp.getTipo().equals(tipo))
                 .findFirst()
                 .get();

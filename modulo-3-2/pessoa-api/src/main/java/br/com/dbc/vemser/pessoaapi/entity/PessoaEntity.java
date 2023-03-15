@@ -46,4 +46,8 @@ public class PessoaEntity {
             joinColumns = @JoinColumn(name = "ID_PESSOA"),
             inverseJoinColumns = @JoinColumn(name = "ID_ENDERECO"))
     private Set<EnderecoEntity> enderecos;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoaEntity")
+    private Set<PessoaFilmeEntity> avaliacoes;
 }

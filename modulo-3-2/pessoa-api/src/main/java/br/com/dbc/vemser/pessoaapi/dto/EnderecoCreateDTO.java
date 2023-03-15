@@ -1,6 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.dto;
 
-import br.com.dbc.vemser.pessoaapi.entity.TipoEndereco;
+import br.com.dbc.vemser.pessoaapi.entity.enums.TipoEndereco;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

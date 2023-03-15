@@ -1,3 +1,6 @@
+/**
+ *
+
 package br.com.dbc.vemser.pessoaapi.controller;
 
 import br.com.dbc.vemser.pessoaapi.entity.*;
@@ -30,10 +33,6 @@ public class ConsultasController {
     private final ContatoRepository contatoRepository;
     private final EnderecoRepository enderecoRepository;
 
-    // TODO: implementar os métodos de pessoaRepository, contatoRepository e endereçoRepository
-
-    /** @observações: é uma má pratica utilizar REPOSITORIOS no Controller pois estamos
-     *  expondo a entidade(models) para o cliente e isso pode gerar problemas ao expor dados sensiveis */
 
     // http://localhost:8080/consultas/pessoas-nome?nome=maicon
     @GetMapping("/pessoas-nome")
@@ -73,3 +72,4 @@ public class ConsultasController {
         return new ResponseEntity<>(enderecoRepository.findByCepOrderByLogradouro(cep), HttpStatus.OK);
     }
 }
+*/

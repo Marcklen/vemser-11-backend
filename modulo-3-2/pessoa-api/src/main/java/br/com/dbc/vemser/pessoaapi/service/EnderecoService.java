@@ -32,29 +32,35 @@ public class EnderecoService {
                 .collect(Collectors.toList());
     }
 
-    public List<EnderecoEntity> listarEnderecosPorIdPessoa(Integer idPessoa) throws Exception {
-        getEndereco(idPessoa);
-//        return enderecoRepositoryOld.listarEnderecosPorIdPessoa(idPessoa);
-        return null;
-    }
+//    public List<EnderecoEntity> listarEnderecosPorIdPessoa(Integer idPessoa) throws Exception {
+//        getEndereco(idPessoa);
+//        return enderecoRepository.findByIdPessoa(idPessoa)
+//                .stream()
+//                .map(enderecoEntity -> objectMapper.convertValue(enderecoEntity, EnderecoEntity.class))
+//                .collect(Collectors.toList());
+//    }
 
     public List<EnderecoEntity> buscarEnderecoPorId(Integer idEndereco) throws Exception {
         getEndereco(idEndereco);
-//        return enderecoRepositoryOld.buscarEnderecoPorId(idEndereco);
-        return null;
+        return enderecoRepository.findById(idEndereco)
+                .stream()
+                .map(enderecoEntity -> objectMapper.convertValue(enderecoEntity, EnderecoEntity.class))
+                .collect(Collectors.toList());
     }
 
     public EnderecoDTO criarEndereco(Integer idPessoa, EnderecoCreateDTO endereco) throws Exception {
         PessoaEntity pessoaEntity = pessoaService.getPessoa(idPessoa);
-        endereco.setIdPessoa(pessoaService.getPessoa(idPessoa).getIdPessoa());
-
         EnderecoEntity enderecoEntity = objectMapper.convertValue(endereco, EnderecoEntity.class);
-        enderecoEntity.setIdPessoa(idPessoa);
+
+        enderecoEntity.getPessoas().add(pessoaEntity);
+        pessoaEntity.getEnderecos().add(enderecoEntity);
+
         enderecoEntity = enderecoRepository.save(enderecoEntity);
 
         EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoEntity, EnderecoDTO.class);
+        enderecoDTO.setIdPessoa(pessoaEntity.getIdPessoa());
 
-        PessoaDTO dto = getPessoaDTO(enderecoEntity);
+        PessoaDTO dto = objectMapper.convertValue(pessoaEntity, PessoaDTO.class);
         emailService.enviarEmailEnderecoCriado(enderecoDTO, dto);
 
         return enderecoDTO;
@@ -76,10 +82,10 @@ public class EnderecoService {
         enderecoEntityRecuperado = enderecoRepository.save(enderecoEntityRecuperado);
 
         // metodo criado pelo intelliJ
-        PessoaDTO dto = getPessoaDTO(enderecoEntityRecuperado);
+//        PessoaDTO dto = getPessoaDTO(enderecoEntityRecuperado);
 
         EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoEntityRecuperado, EnderecoDTO.class);
-        emailService.enviarEmailEnderecoAtualizado(enderecoDTO, dto);
+//        emailService.enviarEmailEnderecoAtualizado(enderecoDTO, dto);
 
         return enderecoDTO;
     }
@@ -89,17 +95,10 @@ public class EnderecoService {
         EnderecoEntity enderecoEntityRecuperado = getEndereco(idEndereco);
         EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoEntityRecuperado, EnderecoDTO.class);
         // metodo criado pelo intelliJ
-        PessoaDTO dto = getPessoaDTO(enderecoEntityRecuperado);
+//        PessoaDTO dto = getPessoaDTO(enderecoEntityRecuperado);
 
-        emailService.enviarEmailEnderecoDeletado(enderecoDTO, dto);
+//        emailService.enviarEmailEnderecoDeletado(enderecoDTO, dto);
         enderecoRepository.delete(enderecoEntityRecuperado);
-    }
-
-    private PessoaDTO getPessoaDTO(EnderecoEntity enderecoEntityRecuperado) throws Exception {
-        PessoaEntity pessoaEntity = pessoaService.getPessoa(enderecoEntityRecuperado.getIdPessoa());
-        PessoaDTO dto = objectMapper.convertValue(pessoaEntity, PessoaDTO.class);
-        dto = objectMapper.convertValue(dto, PessoaDTO.class);
-        return dto;
     }
 
     // metodo para validar se o endereco existe, se não existir, lança uma exceção
@@ -108,4 +107,12 @@ public class EnderecoService {
                 .orElseThrow(() -> new RegraDeNegocioException("Endereço não encontrado!"));
         return enderecoEntityRecuperado;
     }
+
+//    private PessoaDTO getPessoaDTO(EnderecoEntity enderecoEntityRecuperado) throws Exception {
+//        PessoaEntity pessoaEntity = pessoaService.getPessoa(enderecoEntityRecuperado.getIdPessoa());
+//        PessoaDTO dto = objectMapper.convertValue(pessoaEntity, PessoaDTO.class);
+//        dto = objectMapper.convertValue(dto, PessoaDTO.class);
+//        return dto;
+//    }
+
 }

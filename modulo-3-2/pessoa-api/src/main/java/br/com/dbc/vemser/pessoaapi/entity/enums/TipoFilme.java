@@ -1,8 +1,4 @@
-package br.com.dbc.vemser.pessoaapi.entity;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+package br.com.dbc.vemser.pessoaapi.entity.enums;
 
 import java.util.Arrays;
 
