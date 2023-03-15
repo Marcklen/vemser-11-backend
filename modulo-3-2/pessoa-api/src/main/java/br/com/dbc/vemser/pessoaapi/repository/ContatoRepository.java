@@ -11,4 +11,5 @@ import java.util.List;
 public interface ContatoRepository extends JpaRepository<ContatoEntity, Integer> {
 
     List<ContatoEntity> findByTipoContato(TipoContato tipoContato);
+    List<ContatoEntity> findContatoEntitiesByPessoaEntityOrderByTipoContato(Integer idPessoa);
 }

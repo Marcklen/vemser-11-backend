@@ -25,19 +25,19 @@ import java.util.List;
 public class PessoaController implements IPessoaDoc {
 
     private final PessoaService pessoaService;
-    private final PropertieReader propertieReader;
+//    private final PropertieReader propertieReader;
     private final EmailService emailService;
 
     // teste para saber se o endpoint está funcionando
-    @GetMapping("/hello")
-    public String hello() {
-        return "Hello World";
-    }
+//    @GetMapping("/hello")
+//    public String hello() {
+//        return "Hello World";
+//    }
 
-    @GetMapping("/ambiente")
-    public String ambiente() {
-        return "Estou no ambiente: '" + propertieReader.getPropertie() + "'";
-    }
+//    @GetMapping("/ambiente")
+//    public String ambiente() {
+//        return "Estou no ambiente: '" + propertieReader.getPropertie() + "'";
+//    }
 
 
     @GetMapping // GET localhost:8080/pessoa

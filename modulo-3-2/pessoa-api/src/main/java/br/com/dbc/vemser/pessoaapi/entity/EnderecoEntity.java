@@ -1,5 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,10 +19,14 @@ public class EnderecoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ENDERECO_CONTATO")
     @SequenceGenerator(name = "SEQ_ENDERECO_CONTATO", sequenceName = "SEQ_ENDERECO_CONTATO", allocationSize = 1)
+    @Column(name = "ID_ENDERECO")
     private Integer idEndereco;
 
+    @Column(name = "id_pessoa", insertable = false, updatable = false)
+    private Integer idPessoa;
+
     @Column(name = "TIPO")
-    @Enumerated(EnumType.STRING)
+//    @Enumerated(EnumType.STRING)
     private TipoEndereco tipo;
 
     @Column(name = "LOGRADOURO")
@@ -45,6 +50,7 @@ public class EnderecoEntity {
     @Column(name = "PAIS")
     private String pais;
 
-    @ManyToMany(mappedBy = "enderecos")
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "enderecos")
     private Set<PessoaEntity> pessoas;
 }

@@ -29,7 +29,7 @@ public class PetEntity {
     private TipoPet tipo;
 
 //    @JsonIgnore
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_PESSOA" , referencedColumnName = "ID_PESSOA")
-    private PessoaEntity idPessoa;
+    @ManyToOne
+    @JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID_PESSOA", insertable = false, updatable = false)
+    private PessoaEntity pessoaEntity;
 }

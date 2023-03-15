@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PessoaService {
 
-    //    private final PessoaRepositoryOld pessoaRepositoryOld;
     private final PessoaRepository pessoaRepository;
     private final ObjectMapper objectMapper;
     private final EmailService emailService;
@@ -25,7 +24,6 @@ public class PessoaService {
     public PessoaDTO create(PessoaCreateDTO pessoa) throws Exception {
 
         PessoaEntity pessoaEntity = objectMapper.convertValue(pessoa, PessoaEntity.class);
-//        PessoaEntity pessoaEntityCriada = pessoaRepositoryOld.create(pessoaEntity);
         pessoaEntity = pessoaRepository.save(pessoaEntity);
         PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaEntity, PessoaDTO.class);
 
@@ -35,7 +33,6 @@ public class PessoaService {
     }
 
     public List<PessoaDTO> list() {
-//        return pessoaRepositoryOld.list()
         return pessoaRepository.findAll()
                 .stream()
                 .map(pessoa -> objectMapper.convertValue(pessoa, PessoaDTO.class))
@@ -64,16 +61,15 @@ public class PessoaService {
         // fiz essa conversão para verificar se o objeto está sendo convertido corretamente e se consigo exclui-lo
         PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaEntityRecuperada, PessoaDTO.class);
         emailService.enviarEmailParaPessoaExcluida(pessoaDTO);
-//        pessoaRepositoryOld.delete(pessoaEntityRecuperada);
         pessoaRepository.delete(pessoaEntityRecuperada);
     }
 
     public List<PessoaEntity> listByName(String nome) throws RegraDeNegocioException {
-//        List<PessoaEntity> pessoaEntityList = pessoaRepositoryOld.listByName(nome);
         List<PessoaEntity> pessoaEntityList =
-                pessoaRepository.findByNome(nome)
+                pessoaRepository.findByNomeContainingIgnoreCase(nome)
                         .stream()
-                        .filter(pessoa -> pessoa.getNome().toUpperCase().contains(nome.toUpperCase()))
+                        .filter(pessoa -> pessoa.getNome().contains(nome))
+//                        .filter(pessoa -> pessoa.getNome().toUpperCase().contains(nome.toUpperCase()))
                         .collect(Collectors.toList());
         if (pessoaEntityList.isEmpty()) {
             throw new RegraDeNegocioException("Nenhuma pessoa encontrada com o nome: " + nome.toUpperCase());
@@ -82,9 +78,6 @@ public class PessoaService {
     }
 
     public PessoaEntity getPessoa(Integer id) throws Exception {
-//        PessoaEntity pessoaEntityRecuperada = pessoaRepositoryOld.list().stream()
-//                .filter(pessoa -> pessoa.getIdPessoa().equals(id))
-//                .findFirst()
         PessoaEntity pessoaRecuperada =
                 pessoaRepository.findById(id)
                         .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada!"));

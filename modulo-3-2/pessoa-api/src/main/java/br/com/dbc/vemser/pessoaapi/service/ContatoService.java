@@ -3,6 +3,7 @@ package br.com.dbc.vemser.pessoaapi.service;
 import br.com.dbc.vemser.pessoaapi.dto.ContatoCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.ContatoDTO;
 import br.com.dbc.vemser.pessoaapi.entity.ContatoEntity;
+import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
 import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.ContatoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,18 +25,19 @@ public class ContatoService {
 
     public ContatoDTO create(Integer idPessoa, ContatoCreateDTO contato) throws Exception {
 
+        PessoaEntity pessoaEntity = pessoaService.getPessoa(idPessoa);
         contato.setIdPessoa(pessoaService.getPessoa(idPessoa).getIdPessoa());
 
         ContatoEntity contatoEntity = objectMapper.convertValue(contato, ContatoEntity.class);
-//        ContatoEntity contatoEntityCriado = contatoRepositoryOld.create(contatoEntity);
+        contatoEntity.setIdPessoa(idPessoa);
         contatoEntity = contatoRepository.save(contatoEntity);
+
         ContatoDTO contatoDTO = objectMapper.convertValue(contatoEntity, ContatoDTO.class);
 
         return contatoDTO;
     }
 
     public List<ContatoDTO> lista() {
-//        return contatoRepositoryOld.list()
         return contatoRepository.findAll()
                 .stream()
                 .map(contatoEntity -> objectMapper.convertValue(contatoEntity, ContatoDTO.class))
@@ -49,7 +51,7 @@ public class ContatoService {
         contatoEntityRecuperado.setNumero(contatoAtualizar.getNumero());
         contatoEntityRecuperado.setDescricao(contatoAtualizar.getDescricao());
 
-        contatoRepository.save(contatoEntityRecuperado);
+        contatoEntityRecuperado = contatoRepository.save(contatoEntityRecuperado);
 
         ContatoDTO contatoDTO = objectMapper.convertValue(contatoEntityRecuperado, ContatoDTO.class);
 
@@ -58,20 +60,17 @@ public class ContatoService {
 
     public void delete(Integer id) throws Exception {
         ContatoEntity contatoEntityRecuperado = getContato(id);
-//        contatoRepositoryOld.delete(contatoEntityRecuperado);
         contatoRepository.delete(contatoEntityRecuperado);
     }
 
     public List<ContatoEntity> findByIdPessoa(Integer idPessoa) throws Exception {
-        getContato(idPessoa);
-//        return contatoRepositoryOld.findByIdPessoa(idPessoa);
-        return null;
+//        getContato(idPessoa);
+        pessoaService.getPessoa(idPessoa);
+        return contatoRepository//.findContatoEntitiesByPessoaEntityOrderByTipoContato(idPessoa);
+                .findById(idPessoa).stream().collect(Collectors.toList());
     }
 
     private ContatoEntity getContato(Integer id) throws Exception {
-//        ContatoEntity contatoEntityRecuperado = contatoRepositoryOld.list().stream()
-//                .filter(contatoEntity -> contatoEntity.getIdContato().equals(id))
-//                .findFirst()
         ContatoEntity contatoEntityRecuperado =
                 contatoRepository.findById(id)
                         .orElseThrow(() -> new RegraDeNegocioException("Contato não encontrado!"));

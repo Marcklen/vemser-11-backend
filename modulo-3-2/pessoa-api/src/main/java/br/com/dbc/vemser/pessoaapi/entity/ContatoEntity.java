@@ -14,10 +14,14 @@ public class ContatoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_CONTATO")
     @SequenceGenerator(name = "SEQ_CONTATO", sequenceName = "SEQ_CONTATO", allocationSize = 1)
+    @Column(name = "ID_CONTATO")
     private Integer idContato;
 
+    @Column(name = "id_pessoa", insertable = false, updatable = false)
+    private Integer idPessoa;
+
     @Column(name = "TIPO")
-    @Enumerated(EnumType.STRING)
+//    @Enumerated(EnumType.STRING)
     private TipoContato tipoContato;
 
     @Column(name = "NUMERO")

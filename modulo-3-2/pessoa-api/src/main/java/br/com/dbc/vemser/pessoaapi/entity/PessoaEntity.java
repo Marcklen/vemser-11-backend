@@ -33,14 +33,15 @@ public class PessoaEntity {
     private String email;
 
     @JsonIgnore
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_PET" , referencedColumnName = "ID_PET")
-    private PetEntity pet;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoaEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<PetEntity> pets;
 
-    @OneToMany(mappedBy = "pessoaEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoaEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ContatoEntity> contatos;
 
-    @ManyToMany//(cascade = CascadeType.ALL)
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "PESSOA_X_PESSOA_ENDERECO",
             joinColumns = @JoinColumn(name = "ID_PESSOA"),
             inverseJoinColumns = @JoinColumn(name = "ID_ENDERECO"))
