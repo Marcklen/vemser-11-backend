@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,4 +36,13 @@ public class PessoaEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_PET" , referencedColumnName = "ID_PET")
     private PetEntity pet;
+
+    @OneToMany(mappedBy = "pessoaEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ContatoEntity> contatos;
+
+    @ManyToMany//(cascade = CascadeType.ALL)
+    @JoinTable(name = "PESSOA_X_PESSOA_ENDERECO",
+            joinColumns = @JoinColumn(name = "ID_PESSOA"),
+            inverseJoinColumns = @JoinColumn(name = "ID_ENDERECO"))
+    private Set<EnderecoEntity> enderecos;
 }

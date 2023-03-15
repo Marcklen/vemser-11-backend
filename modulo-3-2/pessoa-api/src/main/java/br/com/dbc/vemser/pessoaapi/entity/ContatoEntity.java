@@ -16,8 +16,6 @@ public class ContatoEntity {
     @SequenceGenerator(name = "SEQ_CONTATO", sequenceName = "SEQ_CONTATO", allocationSize = 1)
     private Integer idContato;
 
-    private Integer idPessoa;
-
     @Column(name = "TIPO")
     @Enumerated(EnumType.STRING)
     private TipoContato tipoContato;
@@ -27,4 +25,8 @@ public class ContatoEntity {
 
     @Column(name = "DESCRICAO")
     private String descricao;
+
+    @ManyToOne
+    @JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID_PESSOA", insertable = false, updatable = false)
+    private PessoaEntity pessoaEntity;
 }

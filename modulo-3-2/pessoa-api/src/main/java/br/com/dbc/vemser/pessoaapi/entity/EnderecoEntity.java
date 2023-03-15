@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,8 +19,6 @@ public class EnderecoEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ENDERECO_CONTATO")
     @SequenceGenerator(name = "SEQ_ENDERECO_CONTATO", sequenceName = "SEQ_ENDERECO_CONTATO", allocationSize = 1)
     private Integer idEndereco;
-
-    private Integer idPessoa;
 
     @Column(name = "TIPO")
     @Enumerated(EnumType.STRING)
@@ -45,4 +44,7 @@ public class EnderecoEntity {
 
     @Column(name = "PAIS")
     private String pais;
+
+    @ManyToMany(mappedBy = "enderecos")
+    private Set<PessoaEntity> pessoas;
 }
