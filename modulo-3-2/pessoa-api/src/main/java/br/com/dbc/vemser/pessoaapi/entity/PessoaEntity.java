@@ -1,5 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ public class PessoaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PESSOA_SEQ")
     @SequenceGenerator(name = "PESSOA_SEQ", sequenceName = "SEQ_PESSOA2", allocationSize = 1)
+    @Column(name = "ID_PESSOA")
     private Integer idPessoa;
 
     @Column(name = "NOME")
@@ -28,4 +30,9 @@ public class PessoaEntity {
 
     @Column(name = "EMAIL")
     private String email;
+
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_PET" , referencedColumnName = "ID_PET")
+    private PetEntity pet;
 }
