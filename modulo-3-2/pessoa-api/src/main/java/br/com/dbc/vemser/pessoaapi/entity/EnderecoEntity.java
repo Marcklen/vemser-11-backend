@@ -19,9 +19,10 @@ public class EnderecoEntity {
     @SequenceGenerator(name = "SEQ_ENDERECO_CONTATO", sequenceName = "SEQ_ENDERECO_CONTATO", allocationSize = 1)
     private Integer idEndereco;
 
-    //    private Integer idPessoa;
+    private Integer idPessoa;
 
     @Column(name = "TIPO")
+    @Enumerated(EnumType.STRING)
     private TipoEndereco tipo;
 
     @Column(name = "LOGRADOURO")

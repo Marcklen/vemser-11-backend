@@ -26,6 +26,6 @@ public class FilmeEntity {
     private Integer nota;
 
     @Column(name = "TIPO")
-    @Enumerated(EnumType.STRING)
+//    @Enumerated(EnumType.STRING)
     private TipoFilme tipoFilme;
 }

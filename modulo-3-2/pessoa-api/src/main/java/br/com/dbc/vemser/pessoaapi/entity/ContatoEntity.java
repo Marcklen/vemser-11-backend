@@ -16,9 +16,10 @@ public class ContatoEntity {
     @SequenceGenerator(name = "SEQ_CONTATO", sequenceName = "SEQ_CONTATO", allocationSize = 1)
     private Integer idContato;
 
-//    private Integer idPessoa;
+    private Integer idPessoa;
 
     @Column(name = "TIPO")
+    @Enumerated(EnumType.STRING)
     private TipoContato tipoContato;
 
     @Column(name = "NUMERO")

@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public enum TipoFilme {
 
-    TERROR(0), ANIMACAO(1), DRAMA(2), COMEDIA(3), ROMANCE(4), SUSPENSE(5), FICCAO(6);
+    TERROR_SUSPENSE(0), ANIMACAO(1), DRAMA_MISTERIO(2), COMEDIA_ROMANCE(3);
 
     private Integer tipo;
 
