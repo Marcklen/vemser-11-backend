@@ -6,7 +6,7 @@ import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaDadosPessoaisDTO;
 import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
 import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
-import br.com.dbc.vemser.pessoaapi.repository.PessoaRepositoryOld;
+import br.com.dbc.vemser.pessoaapi.repository.old.PessoaRepositoryOld;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

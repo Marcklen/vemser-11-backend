@@ -1,4 +1,4 @@
-package br.com.dbc.vemser.pessoaapi.repository;
+package br.com.dbc.vemser.pessoaapi.repository.old;
 
 import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
 import org.springframework.stereotype.Repository;
