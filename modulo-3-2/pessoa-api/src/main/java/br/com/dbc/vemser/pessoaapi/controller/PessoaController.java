@@ -1,6 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
 import br.com.dbc.vemser.pessoaapi.controller.impl.IPessoaDoc;
+import br.com.dbc.vemser.pessoaapi.dto.PageDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
 import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
@@ -9,12 +10,18 @@ import br.com.dbc.vemser.pessoaapi.service.PessoaService;
 import br.com.dbc.vemser.pessoaapi.service.PropertieReader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -79,5 +86,14 @@ public class PessoaController implements IPessoaDoc {
         pessoaService.delete(id);
         log.info("Pessoa deletada com sucesso");
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/paginacao")
+    public ResponseEntity<PageDTO<PessoaDTO>> buscaPaginada(
+            @RequestParam(value = "dataNascimento", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataNascimento,
+            @RequestParam(value = "page") Integer pagina,
+            @RequestParam(value = "size") Integer tamanho) {
+        return new ResponseEntity<>(
+                pessoaService.buscaPessoasPorDataOuNomeOrdenada(pagina, tamanho, dataNascimento), HttpStatus.OK);
     }
 }

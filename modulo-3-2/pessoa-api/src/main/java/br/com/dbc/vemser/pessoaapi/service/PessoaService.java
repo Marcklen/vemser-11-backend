@@ -1,5 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
+import br.com.dbc.vemser.pessoaapi.dto.PageDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
 import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
@@ -7,8 +8,12 @@ import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -82,5 +87,25 @@ public class PessoaService {
                 pessoaRepository.findById(id)
                         .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada!"));
         return pessoaRecuperada;
+    }
+
+    public PageDTO<PessoaDTO> buscaPessoasPorDataOuNomeOrdenada(Integer pagina, Integer tamanho, LocalDate data) {
+
+        Pageable solicitacaoPagina = PageRequest.of(pagina, tamanho);
+
+        Page<PessoaEntity> paginaPorDataOuNome = pessoaRepository.findByDataNascimentoIsGreaterThanEqualOrderByNomeAsc(solicitacaoPagina, data);
+
+        List<PessoaDTO> pessoaDTOList = paginaPorDataOuNome.getContent()
+                .stream()
+                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaDTO.class))
+                .collect(Collectors.toList());
+
+        return new PageDTO<>(
+                paginaPorDataOuNome.getTotalElements(),
+                paginaPorDataOuNome.getTotalPages(),
+                pagina,
+                tamanho,
+                pessoaDTOList
+        );
     }
 }
