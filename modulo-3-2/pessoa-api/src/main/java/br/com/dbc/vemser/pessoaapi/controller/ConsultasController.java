@@ -1,9 +1,11 @@
-/**
- *
-
 package br.com.dbc.vemser.pessoaapi.controller;
 
-import br.com.dbc.vemser.pessoaapi.entity.*;
+import br.com.dbc.vemser.pessoaapi.dto.RelatorioPessoaCompletoDTO;
+import br.com.dbc.vemser.pessoaapi.entity.ContatoEntity;
+import br.com.dbc.vemser.pessoaapi.entity.EnderecoEntity;
+import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
+import br.com.dbc.vemser.pessoaapi.entity.enums.TipoContato;
+import br.com.dbc.vemser.pessoaapi.entity.enums.TipoEndereco;
 import br.com.dbc.vemser.pessoaapi.repository.ContatoRepository;
 import br.com.dbc.vemser.pessoaapi.repository.EnderecoRepository;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
@@ -19,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -71,5 +72,9 @@ public class ConsultasController {
     public ResponseEntity<List<EnderecoEntity>> buscarPorCepOrdenacaoPorLogradouro(@RequestParam("cep") String cep) {
         return new ResponseEntity<>(enderecoRepository.findByCepOrderByLogradouro(cep), HttpStatus.OK);
     }
+
+    @GetMapping("/pessoas-relatorio")
+    public ResponseEntity<List<RelatorioPessoaCompletoDTO>> buscarPessoasRelatorio() {
+        return new ResponseEntity<>(pessoaRepository.reportPessoaCompleto(), HttpStatus.OK);
+    }
 }
-*/
