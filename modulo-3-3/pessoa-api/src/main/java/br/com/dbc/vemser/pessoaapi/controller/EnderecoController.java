@@ -1,8 +1,8 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
 import br.com.dbc.vemser.pessoaapi.controller.impl.IEnderecoDoc;
-import br.com.dbc.vemser.pessoaapi.dto.EnderecoCreateDTO;
-import br.com.dbc.vemser.pessoaapi.dto.EnderecoDTO;
+import br.com.dbc.vemser.pessoaapi.dto.in.EnderecoCreateDTO;
+import br.com.dbc.vemser.pessoaapi.dto.out.EnderecoDTO;
 import br.com.dbc.vemser.pessoaapi.entity.EnderecoEntity;
 import br.com.dbc.vemser.pessoaapi.service.EnderecoService;
 import lombok.extern.slf4j.Slf4j;

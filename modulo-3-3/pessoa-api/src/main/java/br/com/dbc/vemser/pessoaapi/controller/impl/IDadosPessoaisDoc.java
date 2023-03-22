@@ -1,6 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.controller.impl;
 
-import br.com.dbc.vemser.pessoaapi.dto.DadosPessoaisDTO;
+import br.com.dbc.vemser.pessoaapi.dto.out.DadosPessoaisDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

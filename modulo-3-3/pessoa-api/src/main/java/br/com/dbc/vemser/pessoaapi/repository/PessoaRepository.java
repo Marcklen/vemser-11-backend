@@ -1,6 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.repository;
 
-import br.com.dbc.vemser.pessoaapi.dto.RelatorioPessoaCompletoDTO;
+import br.com.dbc.vemser.pessoaapi.dto.out.RelatorioPessoaCompletoDTO;
 import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +19,7 @@ public interface PessoaRepository extends JpaRepository<PessoaEntity, Integer> {
 
     List<PessoaEntity> findByDataNascimentoBetween(LocalDate dataInicio, LocalDate dataFinal);
 
-    @Query("SELECT new br.com.dbc.vemser.pessoaapi.dto.RelatorioPessoaCompletoDTO(" +
+    @Query("SELECT new br.com.dbc.vemser.pessoaapi.dto.out.RelatorioPessoaCompletoDTO(" +
             "           p.idPessoa, " +
             "           p.nome, " +
             "           p.email, " +

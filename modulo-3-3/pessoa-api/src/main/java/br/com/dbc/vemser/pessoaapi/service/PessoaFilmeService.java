@@ -1,13 +1,11 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
-import br.com.dbc.vemser.pessoaapi.dto.PessoaFilmeCreateDTO;
-import br.com.dbc.vemser.pessoaapi.dto.PessoaFilmeDTO;
-import br.com.dbc.vemser.pessoaapi.entity.FilmeEntity;
+import br.com.dbc.vemser.pessoaapi.dto.in.PessoaFilmeCreateDTO;
+import br.com.dbc.vemser.pessoaapi.dto.out.PessoaFilmeDTO;
 import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
 import br.com.dbc.vemser.pessoaapi.entity.PessoaFilmeEntity;
 import br.com.dbc.vemser.pessoaapi.entity.PessoaFilmePK;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaFilmeRepository;
-import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

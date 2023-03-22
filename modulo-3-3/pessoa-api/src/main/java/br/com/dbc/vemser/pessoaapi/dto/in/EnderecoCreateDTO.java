@@ -1,4 +1,4 @@
-package br.com.dbc.vemser.pessoaapi.dto;
+package br.com.dbc.vemser.pessoaapi.dto.in;
 
 import br.com.dbc.vemser.pessoaapi.entity.enums.TipoEndereco;
 import io.swagger.v3.oas.annotations.media.Schema;

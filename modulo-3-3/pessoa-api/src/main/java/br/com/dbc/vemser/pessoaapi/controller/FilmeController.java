@@ -1,9 +1,9 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
-import br.com.dbc.vemser.pessoaapi.dto.FilmeCreateDTO;
-import br.com.dbc.vemser.pessoaapi.dto.FilmeDTO;
-import br.com.dbc.vemser.pessoaapi.dto.PessoaFilmeCreateDTO;
-import br.com.dbc.vemser.pessoaapi.dto.PessoaFilmeDTO;
+import br.com.dbc.vemser.pessoaapi.dto.in.FilmeCreateDTO;
+import br.com.dbc.vemser.pessoaapi.dto.out.FilmeDTO;
+import br.com.dbc.vemser.pessoaapi.dto.in.PessoaFilmeCreateDTO;
+import br.com.dbc.vemser.pessoaapi.dto.out.PessoaFilmeDTO;
 import br.com.dbc.vemser.pessoaapi.service.FilmeService;
 import br.com.dbc.vemser.pessoaapi.service.PessoaFilmeService;
 import lombok.RequiredArgsConstructor;

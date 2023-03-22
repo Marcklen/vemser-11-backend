@@ -1,9 +1,9 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
-import br.com.dbc.vemser.pessoaapi.dto.DadosPessoaisDTO;
-import br.com.dbc.vemser.pessoaapi.dto.PessoaCreateDTO;
-import br.com.dbc.vemser.pessoaapi.dto.PessoaDTO;
-import br.com.dbc.vemser.pessoaapi.dto.PessoaDadosPessoaisDTO;
+import br.com.dbc.vemser.pessoaapi.dto.out.DadosPessoaisDTO;
+import br.com.dbc.vemser.pessoaapi.dto.in.PessoaCreateDTO;
+import br.com.dbc.vemser.pessoaapi.dto.out.PessoaDTO;
+import br.com.dbc.vemser.pessoaapi.dto.out.PessoaDadosPessoaisDTO;
 import br.com.dbc.vemser.pessoaapi.entity.PessoaEntity;
 import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.old.PessoaRepositoryOld;

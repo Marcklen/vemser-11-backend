@@ -1,6 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
-import br.com.dbc.vemser.pessoaapi.dto.PessoaDadosPessoaisDTO;
+import br.com.dbc.vemser.pessoaapi.dto.out.PessoaDadosPessoaisDTO;
 import br.com.dbc.vemser.pessoaapi.service.PessoaDadosPessoaisService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

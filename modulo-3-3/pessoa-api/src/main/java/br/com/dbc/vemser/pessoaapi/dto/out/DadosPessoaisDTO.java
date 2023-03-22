@@ -1,5 +1,6 @@
-package br.com.dbc.vemser.pessoaapi.dto;
+package br.com.dbc.vemser.pessoaapi.dto.out;
 
+import br.com.dbc.vemser.pessoaapi.entity.enums.Sexo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
