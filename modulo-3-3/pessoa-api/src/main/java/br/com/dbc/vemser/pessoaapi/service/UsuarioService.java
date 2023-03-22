@@ -31,4 +31,8 @@ public class UsuarioService {
             throw new RegraDeNegocioException("Quem é tu maluco ? Não te conheço !");
         }
     }
+
+    public Optional<UsuarioEntity> findById(Integer id) {
+        return usuarioRepository.findById(id);
+    }
 }
