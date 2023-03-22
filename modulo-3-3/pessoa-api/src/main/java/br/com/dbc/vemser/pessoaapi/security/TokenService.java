@@ -1,61 +1,50 @@
 package br.com.dbc.vemser.pessoaapi.security;
 
 import br.com.dbc.vemser.pessoaapi.entity.UsuarioEntity;
-import br.com.dbc.vemser.pessoaapi.service.UsuarioService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Optional;
+import java.util.Collections;
 
 @Service
-//@RequiredArgsConstructor
 public class TokenService {
 
     private static final String CHAVE_LOGIN = "login";
-    private final UsuarioService usuarioService;
+    private static final String TOKEN_PREFIX = "Bearer ";
     @Value("${jwt.secret}")
     private String secret;
 
-    public TokenService(@Lazy UsuarioService usuarioService) {
-        this.usuarioService = usuarioService;
-    }
 
-    public String gerarToken (UsuarioEntity usuarioEntity) {
-        // usuario = login = user  | senha = 123
-//        String tokenTexto = usuarioEntity.getLogin() + ";" + usuarioEntity.getSenha(); // user;123
-//        String token = Base64.getEncoder().encodeToString(tokenTexto.getBytes()); // dXNlcjsxMjM=
-
+    public String gerarToken(UsuarioEntity usuarioEntity) {
         String token =
                 Jwts.builder()
                         .claim(CHAVE_LOGIN, usuarioEntity.getLogin())
-                        .claim(Claims.ID, usuarioEntity.getIdUsuario())
-                        .setIssuedAt(Date.valueOf(LocalDate.now())) // data de agora
-                        .setExpiration(Date.valueOf(LocalDate.now().plusDays(1))) // data de agora + 24hrs
+                        .claim(Claims.ID, usuarioEntity.getIdUsuario().toString())
+                        .setIssuedAt(Date.valueOf(LocalDate.now()))
+                        .setExpiration(Date.valueOf(LocalDate.now().plusDays(1)))
                         .signWith(SignatureAlgorithm.HS256, secret)
                         .compact();
         return token;
     }
 
 
-    public Optional<UsuarioEntity> isValid(String token) {
-        if (token == null) {
-            return Optional.empty();
+    public UsernamePasswordAuthenticationToken isValid(String token) {
+        if (token != null) {
+            Claims body = Jwts.parser()
+                    .setSigningKey(secret)
+                    .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+                    .getBody();
+            String user = body.get(Claims.ID, String.class);
+            if (user != null) {
+                return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
+            }
         }
-//        byte[] decodedBytes = Base64.getUrlDecoder().decode(token);
-//        String decoded = new String(decodedBytes); // login;senha
-//        String[] split = decoded.split(";"); // [0] login [1] senha
-//        return usuarioService.findByLoginAndSenha(split[0], split[1]);
-        Claims claims = Jwts.parser()
-                .setSigningKey(secret)
-                .parseClaimsJws(token)
-                .getBody();
-        Integer id = claims.get(Claims.ID, Integer.class);
-        return usuarioService.findById(id);
+        return null;
     }
 }
