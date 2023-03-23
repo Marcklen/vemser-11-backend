@@ -13,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -81,5 +82,18 @@ public class UsuarioService {
         usuarioEntity.setSenha(passwordEncoder.encode(usuarioCreateDTO.getSenha()));
         usuarioEntity = usuarioRepository.save(usuarioEntity);
         return objectMapper.convertValue(usuarioEntity, UsuarioDTO.class);
+    }
+
+    public Integer getIdLoggedUser() {
+        return Integer.parseInt(SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal().toString());
+    }
+
+    public UsuarioDTO getLoggedUser() throws RegraDeNegocioException {
+        return findById(getIdLoggedUser())
+                .map(usuarioEntity -> objectMapper.convertValue(usuarioEntity, UsuarioDTO.class))
+                .orElseThrow(() -> new RegraDeNegocioException("Usuário não encontrado!"));
     }
 }

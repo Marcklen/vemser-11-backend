@@ -20,14 +20,17 @@ public class TokenService {
     @Value("${jwt.secret}")
     private String secret;
 
+    @Value("${jwt.expiration}")
+    private String expiration;
 
     public String gerarToken(UsuarioEntity usuarioEntity) {
+        Date exp = new Date(System.currentTimeMillis() + Long.parseLong(expiration));
         String token =
                 Jwts.builder()
                         .claim(CHAVE_LOGIN, usuarioEntity.getLogin())
                         .claim(Claims.ID, usuarioEntity.getIdUsuario().toString())
                         .setIssuedAt(Date.valueOf(LocalDate.now()))
-                        .setExpiration(Date.valueOf(LocalDate.now().plusDays(1)))
+                        .setExpiration(exp)
                         .signWith(SignatureAlgorithm.HS256, secret)
                         .compact();
         return token;

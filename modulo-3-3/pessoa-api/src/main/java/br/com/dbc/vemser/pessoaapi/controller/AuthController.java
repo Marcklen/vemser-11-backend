@@ -9,10 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -34,5 +31,11 @@ public class AuthController {
     public ResponseEntity<UsuarioDTO> create(@RequestBody @Valid UsuarioCreateDTO usuarioCreateDTO) throws RegraDeNegocioException {
         UsuarioDTO usuario = usuarioService.salvar(usuarioCreateDTO);
         return new ResponseEntity<>(usuario, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/usuario")
+    public ResponseEntity<UsuarioDTO> getUsuario() throws RegraDeNegocioException {
+        UsuarioDTO usuario = usuarioService.getLoggedUser();
+        return new ResponseEntity<>(usuario, HttpStatus.OK);
     }
 }
