@@ -4,7 +4,8 @@ import br.com.dbc.vemser.pessoaapi.dto.in.UsuarioCreateDTO;
 import lombok.Data;
 
 @Data
-public class UsuarioDTO extends UsuarioCreateDTO {
+public class UsuarioDTO { // extends UsuarioCreateDTO {
 
     private Integer idUsuario;
+    private String login;
 }
