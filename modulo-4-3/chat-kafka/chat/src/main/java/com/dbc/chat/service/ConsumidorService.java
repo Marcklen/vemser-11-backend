@@ -26,8 +26,12 @@ public class ConsumidorService {
             containerFactory = "listenerContainerFactory1"
     )
     public void consumeChatGeral(@Payload String mensagem, @Header(KafkaHeaders.RECEIVED_PARTITION_ID) Integer partition) throws JsonProcessingException {
-        MensagemDTO mensagemDTO = objectMapper.readValue(mensagem, MensagemDTO.class);
-        log.info("'{}' '[{}]': '{}'" + mensagemDTO.getDataCriacao(), mensagemDTO.getUsuario(), mensagemDTO.getMensagem());
+        try {
+            MensagemDTO mensagemDTO = objectMapper.readValue(mensagem, MensagemDTO.class);
+            log.info("'{}' '[{}]': '{}'" + mensagemDTO.getDataCriacao(), mensagemDTO.getUsuario(), mensagemDTO.getMensagem());
+        } catch (Exception e) {
+            log.error("Erro ao consumir mensagem do kafka: {}", mensagem, e);
+        }
     }
 
     @KafkaListener(
@@ -37,8 +41,11 @@ public class ConsumidorService {
             containerFactory = "listenerContainerFactory2"
     )
     public void consumeChatMarcklen(@Payload String mensagem, @Header(KafkaHeaders.RECEIVED_PARTITION_ID) Integer partition) throws JsonProcessingException {
-        MensagemDTO mensagemDTO = objectMapper.readValue(mensagem, MensagemDTO.class);
-        log.info("'{}' '[{}]'(privada): '{}'" + mensagemDTO.getDataCriacao(), mensagemDTO.getUsuario(), mensagemDTO.getMensagem());
-
+        try {
+            MensagemDTO mensagemDTO = objectMapper.readValue(mensagem, MensagemDTO.class);
+            log.info("'{}' '[{}]'(privada): '{}'" + mensagemDTO.getDataCriacao(), mensagemDTO.getUsuario(), mensagemDTO.getMensagem());
+        } catch (Exception e) {
+            log.error("Erro ao consumir mensagem do kafka: {}", mensagem, e);
+        }
     }
 }
