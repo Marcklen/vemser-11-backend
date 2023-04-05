@@ -14,8 +14,20 @@ import java.util.Map;
 @Configuration
 public class KafkaProducerConfig {
 
-    @Value(value = "${kafka.bootstrap-servers}")
-    private String bootstrapAddress; //localhost:9092
+    @Value(value = "${spring.kafka.bootstrap-servers}")
+    private String bootstrapAddress; // moped.srvs.cloudkafka.com:9094
+
+    @Value(value = "${spring.kafka.properties.sasl.mechanism}")
+    private String scram;
+
+    @Value(value = "${spring.kafka.properties.sasl.jaas.config}")
+    private String jaasConfig;
+
+    @Value(value = "${spring.kafka.properties.security.protocol}")
+    private String sasl;
+
+    @Value(value = "${spring.kafka.properties.enable.idempotence}")
+    private String idempotence;
 
     @Bean
     public KafkaTemplate<String, String> configKafkaTemplate() {
@@ -23,6 +35,10 @@ public class KafkaProducerConfig {
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress); // servidor
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class); // chave
         configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class); // valor
+        configProps.put("sasl.mechanism", scram);
+        configProps.put("sasl.jaas.config", jaasConfig);
+        configProps.put("security.protocol", sasl);
+        configProps.put("enable.idempotence" , idempotence);
         DefaultKafkaProducerFactory<String, String> kafkaProducerFactory = new DefaultKafkaProducerFactory<>(configProps);
         return new KafkaTemplate<>(kafkaProducerFactory);
     }

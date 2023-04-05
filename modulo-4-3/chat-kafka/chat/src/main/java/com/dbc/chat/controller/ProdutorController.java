@@ -1,5 +1,6 @@
 package com.dbc.chat.controller;
 
+import com.dbc.chat.dto.MensagemDTO;
 import com.dbc.chat.dto.NomeChat;
 import com.dbc.chat.service.ProdutorService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -16,7 +17,7 @@ public class ProdutorController {
     private final ProdutorService produtorService;
 
     @PostMapping("/send-to")
-    public void sendTo(@RequestParam List<NomeChat> chats, @RequestParam String mensagem) throws JsonProcessingException {
+    public void sendTo(@RequestParam List<NomeChat> chats, @RequestBody MensagemDTO mensagem) throws JsonProcessingException {
         for (NomeChat nome : chats) {
             produtorService.sendTo(mensagem, nome);
         }
