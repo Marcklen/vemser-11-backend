@@ -2,7 +2,6 @@ package com.dbc.chat.service;
 
 import com.dbc.chat.dto.MensagemDTO;
 import com.dbc.chat.dto.NomeChat;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -29,18 +28,19 @@ public class ProdutorService {
     @Value(value = "${kafka.topic}")
     private String topic;
 
-    public void sendTo (MensagemDTO messagedto, NomeChat nome) throws JsonProcessingException {
+    public void sendTo(MensagemDTO messagedto, NomeChat nome) throws JsonProcessingException {
         String mensagem = objectMapper.writeValueAsString(messagedto);
 
-        MessageBuilder<String> stringMessageBuilder = MessageBuilder.withPayload(mensagem)
-                .setHeader(KafkaHeaders.TOPIC, topic)
-                .setHeader(KafkaHeaders.MESSAGE_KEY, UUID.randomUUID().toString());
-
+        MessageBuilder<String> stringMessageBuilder =
+                MessageBuilder.withPayload(mensagem)
+                        .setHeader(KafkaHeaders.TOPIC, topic)
+                        .setHeader(KafkaHeaders.MESSAGE_KEY, UUID.randomUUID().toString());
 
         if (nome != null) {
             stringMessageBuilder
                     .setHeader(KafkaHeaders.PARTITION_ID, nome.getParticao());
         }
+
         Message<String> message = stringMessageBuilder.build();
 
         ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(message);
